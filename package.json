@@ -8,8 +8,8 @@
   },
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "dev": "vite client",
-    "dev-server": "tsx server/src/main.ts"
+    "dev:client": "vite client",
+    "dev:server": "tsx server/src/main.ts"
   },
   "dependencies": {
     "@types/ws": "^8.18.1",
