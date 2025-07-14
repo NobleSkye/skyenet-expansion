@@ -1,11 +1,11 @@
-import { MoveMessage, StatusMessage } from "../../core/src/types";
+import { type MessageType } from "../../core/src/types";
 
 export class Game {
-    public handleMovementMessage(message: MoveMessage) {
+    public handleMovementMessage(message: MessageType.MoveMessage) {
 
     }
-    public handleStatusMessage(message: StatusMessage) {
-        
+    public handleStatusMessage(message: MessageType.StatusMessage) {
+
     }
 
     public generateRandomPlayerID() {

@@ -26,5 +26,6 @@ export const AuthenticationMessage = z.object({
 });
 
 export const AuthenticationMessageCallback = z.object({
+    type: z.literal(WebSocketMessageType.AuthenticationCallback).default(WebSocketMessageType.AuthenticationCallback),
     playerID: z.string()
 });
