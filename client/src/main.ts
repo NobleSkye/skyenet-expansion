@@ -2,6 +2,7 @@ import 'kaplay'
 import './style.css'
 import kaplay from 'kaplay'
 import spaceship from './sprites/spaceship.webp'
+import * as websocket from './websocket';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -48,3 +49,5 @@ k.onUpdate("player" ,(player) => {
     }
   }
 })
+
+websocket.init();
