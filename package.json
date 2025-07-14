@@ -4,19 +4,15 @@
   "description": "a goofy space game >:3",
   "repository": {
     "type": "git",
-    "url": "https://github.com//Lionbyte-Studios/skyenet-expansion.git"
+    "url": "https://github.com/Lionbyte-Studios/skyenet-expansion.git"
   },
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "dev": "vite client",
     "dev-server": "tsx server/src/main.ts"
   },
   "dependencies": {
     "@types/ws": "^8.18.1",
-    "express": "^5.1.0",
     "kaplay": "^3001.0.19",
     "tsx": "^4.20.3",
     "ws": "^8.18.3",
