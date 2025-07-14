@@ -1,6 +1,4 @@
-import 'kaplay'
-import './style.css'
-import kaplay from 'kaplay'
+
 import spaceship from './sprites/spaceship.webp'
 import * as websocket from './websocket';
 
@@ -8,46 +6,31 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
   </div>
 `
+const canvas  = document.getElementById("screen") as HTMLCanvasElement;
+const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-let thrusting = false;
-let speed = 0;
+var display = {startWidth:1280, aspectRatio:[16,9], scale:0}
 
-const k = kaplay({
-  buttons: {
-    thrust: {
-      keyboard: ["w"],
+
+function tick(){
+  requestAnimationFrame(tick)
+  drawGame()
+}
+
+function drawGame(){
+  resize()
+  ctx.fillRect(0,0,10000,10000)
+}
+
+function resize(){
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = display.aspectRatio[1] * window.innerWidth / display.aspectRatio[0];
+    if(ctx.canvas.height>window.innerHeight){
+        ctx.canvas.height=window.innerHeight
+        ctx.canvas.width = display.aspectRatio[0] * window.innerHeight / display.aspectRatio[1]
     }
-  }
-});
+    ctx.scale(ctx.canvas.width/display.startWidth,ctx.canvas.width/display.startWidth)
+    display.scale=ctx.canvas.width/display.startWidth
+}
 
-k.loadSprite("player", spaceship, {
-    sliceX: 1, // how many sprites are in the X axis
-    sliceY: 1, // how many sprites are in the Y axis
-});
-
-const player = k.add([
-  k.sprite("player"),
-  k.pos(100, 100),
-])
-
-k.onButtonDown("thrust", () => {
-  thrusting = true
-});
- 
-k.onButtonRelease("thrust", () => {
-  thrusting = false;
-})
-
-k.onUpdate("player" ,(player) => {
-  if (thrusting) {
-    if (player.move.speed < 2) {
-      player.move.speed += 0.2
-    }
-  } else {
-    if (player.move.speed > 0) {
-      player.move.speed -= 2
-    }
-  }
-})
-
-websocket.init();
+tick()
