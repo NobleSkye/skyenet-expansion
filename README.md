@@ -1,2 +1,2 @@
-# skyenet-expansion
-Space game
+# Skyenet Expansion
+space game :3
