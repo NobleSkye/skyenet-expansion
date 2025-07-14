@@ -8,9 +8,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
   </div>
 `
-
+let speed = 0
 let thrusting = false;
-let speed = 0;
 
 const k = kaplay({
   buttons: {
@@ -41,13 +40,14 @@ k.onButtonRelease("thrust", () => {
 k.onUpdate("player" ,(player) => {
   if (thrusting) {
     if (player.move.speed < 2) {
-      player.move.speed += 0.2
+      speed += 0.2
     }
   } else {
     if (player.move.speed > 0) {
-      player.move.speed -= 2
+      speed -= 0.2
     }
   }
+  player.move(speed, 0)
 })
 
 websocket.init();
