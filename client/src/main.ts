@@ -57,8 +57,5 @@ function resize() {
 
 
 
-var player = {
-
-}
 
 tick();
