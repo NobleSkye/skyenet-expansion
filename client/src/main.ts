@@ -69,42 +69,37 @@ var player = {
 
   },
   velocityChange(){
-    // if(keys.isKeyPressed("KeyW")){
-    //   this.velY--
-    // }
-    // this.y+=this.velY
-    
-            if(keys.isKeyPressed("KeyW")){
-                this.velY -= Math.cos(this.rotation * Math.PI /180)
-                this.velX -= Math.sin(this.rotation * Math.PI /180)
-            }
-            if(keys.isKeyPressed("KeyS")){
-                this.velY *= .90
-                this.velX *= .90
-                this.velR *= .90
-            }
-            if(keys.isKeyPressed("KeyA")){
-                this.velR +=.1
-            }
-            if(keys.isKeyPressed("KeyD")){
-                this.velR -=.1
-            }
+    if(keys.isKeyPressed("KeyW")){
+      this.velY -= Math.cos(this.rotation * Math.PI /180)/3
+      this.velX -= Math.sin(this.rotation * Math.PI /180)/3
+    }
+    if(keys.isKeyPressed("KeyS")){
+      this.velY *= .90
+      this.velX *= .90
+      this.velR *= .90
+    }
+    if(keys.isKeyPressed("KeyA")){
+      this.velR +=.1
+    }
+    if(keys.isKeyPressed("KeyD")){
+      this.velR -=.1
+    }
 
   },
   
     move(){
-        this.y += this.velY
-        this.x += this.velX
-        this.rotation += this.velR
-        this.velY *= .97
-        this.velX *= .97
-        this.velR *= .97
-        if(this.rotation >= 360){
-            this.rotation -= 360
-        }
-        if(this.rotation <= 0){
-            this.rotation += 360
-        }
+      this.y += this.velY
+      this.x += this.velX
+      this.rotation += this.velR
+      this.velY *= .97
+      this.velX *= .97
+      this.velR *= .97
+      if(this.rotation >= 360){
+        this.rotation -= 360
+      }
+      if(this.rotation <= 0){
+        this.rotation += 360
+      }
     }
 }
 
