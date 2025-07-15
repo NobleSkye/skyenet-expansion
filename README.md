@@ -5,7 +5,6 @@ a goofy space game >:3
 ## Dev
 
 - Use pnpm
-- i guess thats it or smth idk
 
 ## Official Roadmap:
 
