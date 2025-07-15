@@ -21,17 +21,20 @@ function tick() {
   requestAnimationFrame(tick);
   game.keys.update()
   game.player.tick()
+  game.camera.tick()
   drawGame();
 }
 
 function drawGame() {
   resize();
   ctx.fillRect(0, 0, 10000, 10000);
+  ctx.translate(game.camera.x,game.camera.y)
   ctx.translate(game.player.x,game.player.y)
   ctx.rotate(-(game.player.rotation * Math.PI / 180))
   ctx.drawImage(image,0-image.width/2,0-image.height/2)
   ctx.rotate(game.player.rotation * Math.PI / 180)
   ctx.translate(-game.player.x,-game.player.y)
+  ctx.translate(-game.camera.x,-game.camera.y)
 }
 
 function resize() {
