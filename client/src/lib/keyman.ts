@@ -4,7 +4,6 @@ export class KeyManager {
     keyBuffer;
     keysCurrentlyPressed;
     keysPressedLastFrame;
-    canvasShape = this.canvasShapeSet()
     
 
 
@@ -26,13 +25,6 @@ export class KeyManager {
         this.setKeyPressed(code, false)
       }, false);
       
-    }
-
-    canvasShapeSet(){
-      return{
-          width:1676,
-          height:918
-      }
     }
 
     wasKeyJustPressed(code="") {

@@ -20,3 +20,24 @@ declare namespace MessageType {
     typeof AuthenticationMessageCallback
   >;
 }
+
+export interface Game {
+  keys:KeyMan
+  player:Player
+  
+}
+export interface KeyMan {
+  wasKeyJustPressed: (KeyCode:string) => boolean
+  isKeyPressed: (KeyCode:string) => boolean
+  setKeyPressed: (KeyCode:string, SetState:boolean) => void
+  update: () => void
+}
+export interface Player {
+  x: number;
+  y: number;
+  velX: number;
+  velY: number;
+  rotation: number;
+  tick: () => void;
+  
+}
