@@ -1,5 +1,5 @@
 // import spaceship from "./sprites/spaceship.webp";
-// import * as websocket from "./websocket";
+// import * as websocket from "./websocket";  aaa
 import { KeyManager } from "./keyman.ts";
 var keys = new KeyManager()
 
