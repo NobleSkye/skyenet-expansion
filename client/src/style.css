@@ -19,7 +19,7 @@ body {
   place-items: center;
   min-height: 100vh;
   /* background-color: #091824; */
-  background-color: #110F0D;
+  background-color: #110f0d;
 }
 
 #app {
@@ -30,7 +30,7 @@ body {
 }
 
 canvas {
-  position:absolute;
+  position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
