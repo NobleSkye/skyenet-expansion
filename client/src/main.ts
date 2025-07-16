@@ -1,8 +1,10 @@
 // import spaceship from "./sprites/spaceship.webp";
 // import * as websocket from "./websocket";  aaa
+import type { Stars } from "../../core/src/types";
 import { imports } from "./lib/imports.ts";
 
 var game = new imports()
+
 
 
 var image = new Image(32,32);
@@ -27,7 +29,25 @@ function tick() {
 
 function drawGame() {
   resize();
+  ctx.fillStyle="#000"
   ctx.fillRect(0, 0, 10000, 10000);
+
+  ctx.fillStyle="#fff"
+  for(let i = 0; i < stars.length; i++){
+    if(stars[i].x+(game.camera.x/stars[i].z)>1300){
+      stars[i].x-=1330
+    }
+    if(stars[i].x+(game.camera.x/stars[i].z)<-30){
+      stars[i].x+=1330
+    }
+    if(stars[i].y+(game.camera.y/stars[i].z)>740){
+      stars[i].y-=770
+    }
+    if(stars[i].y+(game.camera.y/stars[i].z)<-30){
+      stars[i].y+=770
+    }
+    ctx.fillRect(stars[i].x+(game.camera.x/stars[i].z),stars[i].y+(game.camera.y/stars[i].z),10-stars[i].z,10-stars[i].z)
+  }
   ctx.translate(game.camera.x,game.camera.y)
   ctx.translate(game.player.x,game.player.y)
   ctx.rotate(-(game.player.rotation * Math.PI / 180))
@@ -57,8 +77,20 @@ function resize() {
 
 
 
-
-
+class star{
+  x=0
+  y=0
+  z=0
+  constructor(){
+    this.x=-30+Math.random()*1330
+    this.y=-30+Math.random()*770
+    this.z=5+Math.random()*4
+  }
+}
+var stars=[] as Stars
+for(let i = 0;i<50;i++){
+  stars[i]= new star()
+}
 
 
 tick();
