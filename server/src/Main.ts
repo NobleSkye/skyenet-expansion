@@ -4,9 +4,9 @@ import {
   MoveMessage,
   ServerError,
   StatusMessage,
-} from "../../core/src/schemas";
+} from "../../core/src/Schemas";
 import { WebSocketMessageType } from "../../core/src/types";
-import { Game } from "./game";
+import { Game } from "./Game";
 
 const wss = new WebSocketServer({ port: 8081 });
 

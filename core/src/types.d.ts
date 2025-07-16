@@ -3,7 +3,7 @@ import {
   AuthenticationMessageCallback,
   MoveMessage,
   StatusMessage,
-} from "./schemas";
+} from "./Schemas";
 
 export enum WebSocketMessageType {
   Status,
@@ -20,15 +20,17 @@ declare namespace MessageType {
     typeof AuthenticationMessageCallback
   >;
 }
-
+/*
 export interface Game {
   keys: KeyMan;
   player: Player;
 }
+  */
 /*export interface Stars {
   [index: number]: {x:number,y:number,z:number};
   length: number;
 }*/
+/*
 export type Stars = { x: number; y: number; z: number }[];
 
 export interface Asteroid {
@@ -56,3 +58,25 @@ export interface Player {
   rotation: number;
   tick: () => void;
 }
+*/
+
+export type ShipSprite =
+  | "gray-ship"
+  | "blue-ship"
+  | "white-ship"
+  | "black-ship";
+export type ShipEngineSprite =
+  | "gray-ship-engine"
+  | "blue-ship-engine"
+  | "white-ship-engine"
+  | "black-ship-engine";
+
+export type PlayerID = string;
+export type GameID = string;
+export type EntityID = string;
+
+export enum GameMode {
+  FFA,
+}
+
+export const alphabetForID = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

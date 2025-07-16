@@ -1,11 +1,12 @@
-import { Player } from "./player.js";
-import { KeyManager } from "./keyman.js";
-import { Camera } from "./camera.js";
+import { Player } from "./Player.js";
+import { KeyManager } from "./Keyman.js";
+import { Camera } from "./Camera.js";
 import type { Stars, Asteroids } from "../../../core/src/types.js";
+import { Game } from "../../../core/src/Game";
 
-export class ClientGame {
-  public keys = new KeyManager();
-  public player: Player = new Player(this);
+export class ClientGame extends Game {
+  public keyManager = new KeyManager();
+  public myPlayer: ClientPlayer = new Player(this);
   public players: Player[] = [this.player];
   public camera = new Camera(this);
   public stars: Stars;

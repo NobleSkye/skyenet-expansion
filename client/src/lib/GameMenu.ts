@@ -1,4 +1,4 @@
-import { AtlasManager } from "./atlasmanager";
+import { AtlasManager } from "./AtlasManager";
 
 export interface Ship {
   id: string;

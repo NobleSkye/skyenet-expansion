@@ -1,7 +1,7 @@
-import { ClientGame } from "./lib/clientgame.ts";
-import { GameRenderer } from "./lib/gamerenderer.ts";
-import { GameMenu } from "./lib/gamemenu.ts";
-import { AtlasManager } from "./lib/atlasmanager.ts";
+import { ClientGame } from "./ClientGame.js";
+import { GameRenderer } from "./lib/GameRenderer.js";
+import { GameMenu } from "./lib/GameMenu.js";
+import { AtlasManager } from "./lib/AtlasManager.js";
 
 let game: ClientGame;
 let renderer: GameRenderer;

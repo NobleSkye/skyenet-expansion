@@ -1,5 +1,5 @@
-import type { ClientGame } from "./clientgame";
-import { AtlasManager } from "./atlasmanager";
+import type { ClientGame } from "./ClientGame";
+import { AtlasManager } from "./AtlasManager";
 
 export class GameRenderer {
   private ctx;

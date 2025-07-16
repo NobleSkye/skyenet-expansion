@@ -1,4 +1,4 @@
-import { TextureAtlas } from "./textureatlas";
+import { TextureAtlas } from "./TextureAtlas";
 
 export class AtlasManager {
   private atlases: Map<string, TextureAtlas> = new Map();

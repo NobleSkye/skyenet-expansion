@@ -2,7 +2,7 @@ import {
   AuthenticationMessage,
   AuthenticationMessageCallback,
   StatusMessage,
-} from "../../core/src/schemas";
+} from "../../core/src/Schemas";
 import { WebSocketMessageType, type MessageType } from "../../core/src/types";
 
 export function init() {
