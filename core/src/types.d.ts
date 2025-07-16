@@ -29,7 +29,7 @@ export interface Game {
   [index: number]: {x:number,y:number,z:number};
   length: number;
 }*/
-export type Stars = { x: number; y: number; z: number }[];
+export type Stars = { x: number; y: number; z?: number; velX?: number; velY?: number ; size?: number }[];
 
 export interface Asteroid {
   x: number;

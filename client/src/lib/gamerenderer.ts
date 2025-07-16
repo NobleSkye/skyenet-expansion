@@ -27,23 +27,23 @@ export class GameRenderer {
 
     this.ctx.fillStyle = "#fff";
     for (let i = 0; i < this.stars.length; i++) {
-      if (this.stars[i].x + game.camera.x / this.stars[i].z > 1300) {
+      if (this.stars[i].x + game.camera.x / this.stars[i].z! > 1300) {
         this.stars[i].x -= 1330;
       }
-      if (this.stars[i].x + game.camera.x / this.stars[i].z < -30) {
+      if (this.stars[i].x + game.camera.x / this.stars[i].z! < -30) {
         this.stars[i].x += 1330;
       }
-      if (this.stars[i].y + game.camera.y / this.stars[i].z > 740) {
+      if (this.stars[i].y + game.camera.y / this.stars[i].z! > 740) {
         this.stars[i].y -= 770;
       }
-      if (this.stars[i].y + game.camera.y / this.stars[i].z < -30) {
+      if (this.stars[i].y + game.camera.y / this.stars[i].z! < -30) {
         this.stars[i].y += 770;
       }
       this.ctx.fillRect(
-        this.stars[i].x + game.camera.x / this.stars[i].z,
-        this.stars[i].y + game.camera.y / this.stars[i].z,
-        10 - this.stars[i].z,
-        10 - this.stars[i].z,
+        this.stars[i].x + game.camera.x / this.stars[i].z!,
+        this.stars[i].y + game.camera.y / this.stars[i].z!,
+        10 - this.stars[i].z!,
+        10 - this.stars[i].z!,
       );
     }
 
@@ -100,7 +100,8 @@ export class GameRenderer {
     for(let i = 0; i < game.players.length;i++){
       for(let a = 0; a < game.players[i].flames.length;a++){
         this.ctx.translate(game.players[i].flames[a].x, game.players[i].flames[a].y);
-        this.ctx.fillRect(0,0,5,5);
+        this.ctx.fillStyle=`rgb(${(70*game.players[i].flames[a].size!)+10},${(50*game.players[i].flames[a].size!/2)+10},10)`
+        this.ctx.fillRect(-game.players[i].flames[a].size!/2,-game.players[i].flames[a].size!/2,game.players[i].flames[a].size!,game.players[i].flames[a].size!);
         this.ctx.translate(-game.players[i].flames[a].x, -game.players[i].flames[a].y);
 
       }
