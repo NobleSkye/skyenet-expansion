@@ -161,11 +161,6 @@ export class GameMenu {
   }
 
   public render() {
-    console.log(
-      "Menu render called, current screen:",
-      this.state.currentScreen,
-    );
-
     // Handle canvas resizing like the original game
     this.resize();
 

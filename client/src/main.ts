@@ -70,8 +70,6 @@ async function initializeGame() {
 function tick() {
   requestAnimationFrame(tick);
 
-  console.log("Tick called, gameState:", gameState);
-
   if (gameState === "menu") {
     // If game is running, render it in the background
     if (menu.getGameRunning()) {
