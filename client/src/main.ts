@@ -29,6 +29,7 @@ function tick() {
 
 function drawGame() {
   resize();
+  ctx.imageSmoothingEnabled = false;
   ctx.fillStyle="#000"
   ctx.fillRect(0, 0, 10000, 10000);
 
