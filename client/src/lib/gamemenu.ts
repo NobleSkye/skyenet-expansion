@@ -190,13 +190,6 @@ export class GameMenu {
   }
 
   private renderMainMenu() {
-    console.log(
-      "Rendering main menu, canvas size:",
-      this.canvas.width,
-      "x",
-      this.canvas.height,
-    );
-
     // Use base resolution for positioning (1280x720)
     const baseWidth = 1280;
     const baseHeight = 720;
@@ -235,7 +228,6 @@ export class GameMenu {
 
     // Draw ship that follows mouse (right side)
     if (this.atlasManager.areAllLoaded()) {
-      console.log("Atlas loaded, drawing ship at mouse position");
       this.ctx.save();
 
       // Calculate ship position to follow mouse but stay on right side

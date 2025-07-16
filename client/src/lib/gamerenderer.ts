@@ -104,8 +104,6 @@ export class GameRenderer {
 
     // Check if atlas is loaded before drawing
     if (this.atlasManager.areAllLoaded()) {
-      console.log("Atlas loaded, drawing ship");
-
       // Choose texture based on engine state and selected ship
       const shipTexture = game.player.engineActive
         ? game.player.shipEngineSprite
