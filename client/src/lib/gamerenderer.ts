@@ -11,7 +11,7 @@ export class GameRenderer {
     }
     public drawGame(game: ClientGame) {
         const spaceshipImg = new Image(32, 32);
-        spaceshipImg.src = "./src/sprites/spaceship.webp";
+        spaceshipImg.src = "./src/assets/textures/spaceships/blue-ship.webp";
         this.resize();
         this.ctx.imageSmoothingEnabled = false;
         this.ctx.fillStyle = "#000";
