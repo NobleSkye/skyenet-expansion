@@ -31,7 +31,6 @@ a goofy space game >:3
 - [ ] Inventory
     - [ ] Show items in inventory
     - [ ] Use items
-
 - [ ] Resources
 - [ ] Bosses
 
