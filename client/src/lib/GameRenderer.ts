@@ -97,9 +97,18 @@ export class GameRenderer {
 
     // Draw player ship using texture atlas
     this.ctx.translate(game.camera.x, game.camera.y);
-    this.ctx.translate(game.myPlayer.x, game.myPlayer.y);
-    this.ctx.rotate(-((game.myPlayer.rotation * Math.PI) / 180));
-    // console.log(game.players)
+    // this.ctx.translate(game.myPlayer.x, game.myPlayer.y);
+    // this.ctx.rotate(-((game.myPlayer.rotation * Math.PI) / 180));
+    //       const shipTexture = game.myPlayer.shipSprite;
+
+    //       this.atlasManager.drawTexture(
+    //         "entities",
+    //         shipTexture,
+    //         this.ctx,
+    //         -16, // Center the 32x32 sprite
+    //         -16,
+    //       );
+    console.log(game.players)
     for (let i = 0; i < game.players.length; i++) {
       for (let a = 0; a < game.players[i].flames.length; a++) {
         this.ctx.translate(
@@ -156,15 +165,15 @@ export class GameRenderer {
         // Reset scale after drawing
         this.ctx.scale(0.5, 0.5);
 
-        this.ctx.rotate((game.myPlayer.rotation * Math.PI) / 180);
-        this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
+        this.ctx.rotate((game.players[i].rotation * Math.PI) / 180);
+        this.ctx.translate(-game.players[i].x, -game.players[i].y);
       }
 
       // Reset scale after drawing
-      this.ctx.scale(0.5, 0.5);
+      // this.ctx.scale(0.5, 0.5);
 
-      this.ctx.rotate((game.myPlayer.rotation * Math.PI) / 180);
-      this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
+      // this.ctx.rotate((game.myPlayer.rotation * Math.PI) / 180);
+      // this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
       this.ctx.translate(-game.camera.x, -game.camera.y);
     }
   }
