@@ -1,10 +1,12 @@
 import { Game } from "../../core/src/Game";
 import type { GameID, GameMode, PlayerID } from "../../core/src/types";
+import type { ClientPlayer } from "./entity/ClientPlayer";
 import { MyPlayer } from "./entity/MyPlayer";
 import { Camera } from "./lib/Camera";
 import { KeyManager } from "./lib/Keyman";
 
 export class ClientGame extends Game {
+  public players: ClientPlayer[] = [];
   public keyManager = new KeyManager();
   public camera = new Camera(this);
   public myPlayer: MyPlayer;

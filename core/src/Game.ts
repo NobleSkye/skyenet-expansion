@@ -1,11 +1,11 @@
-import { ClientPlayer } from "../../client/src/entity/ClientPlayer";
 import { Config } from "./config/Config";
 import { DefaultConfig } from "./config/DefaultConfig";
 import { Entity } from "./entity/Entity";
+import { Player } from "./entity/Player";
 import { GameID, GameMode } from "./types";
 
 export class Game {
-  public players: ClientPlayer[] = [];
+  public players: Player[] = [];
   public gameID: GameID;
   public gameMode: GameMode;
   public entities: Entity[] = [];
