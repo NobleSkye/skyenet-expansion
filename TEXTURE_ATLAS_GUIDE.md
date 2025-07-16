@@ -1,6 +1,3 @@
-# Texture Atlas Implementation
-
-This document explains how to use the texture atlas system in your game.
 
 ## File Structure
 
@@ -16,7 +13,6 @@ client/src/assets/atlas/
 
 ## Usage Examples
 
-### Basic Atlas Manager Usage
 
 ```typescript
 import { AtlasManager } from "./atlasmanager";
@@ -54,10 +50,3 @@ For a 32x32 grid:
   "another-sprite": { "x": 32, "y": 0, "width": 32, "height": 32 }
 }
 ```
-
-## Benefits
-
-- **Performance**: Single image file instead of multiple files
-- **Memory**: Better GPU texture management
-- **Organization**: Clean asset structure
-- **Flexibility**: Easy to add new sprites

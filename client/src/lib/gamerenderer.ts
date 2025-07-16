@@ -19,23 +19,39 @@ export class GameRenderer {
 
     private async loadAtlases() {
         try {
+            console.log("Starting to load atlases...");
+            
             // Load 32px atlas for ships and large objects
             await this.atlasManager.loadAtlas(
                 "32px",
-                "./src/assets/atlas/32px-atlas/spritesheet-32px.webp",
+                "./src/assets/atlas/32px-atlas/spritesheet-32x.webp",
                 "./src/assets/atlas/32px-atlas/atlas.json"
             );
+            console.log("32px atlas loaded");
 
             // Load 16px atlas for bullets and small objects
             await this.atlasManager.loadAtlas(
                 "16px",
-                "./src/assets/atlas/16px-atlas/spritesheet-16px.webp",
+                "./src/assets/atlas/16px-atlas/spritesheet-16x.webp",
                 "./src/assets/atlas/16px-atlas/atlas.json"
             );
+            console.log("16px atlas loaded");
 
             console.log("All atlases loaded successfully");
         } catch (error) {
             console.error("Failed to load atlases:", error);
+            // Try fallback with different file extensions
+            console.log("Trying fallback with .png extension...");
+            try {
+                await this.atlasManager.loadAtlas(
+                    "32px",
+                    "./src/assets/atlas/32px-atlas/spritesheet-32x.png",
+                    "./src/assets/atlas/32px-atlas/atlas.json"
+                );
+                console.log("32px atlas loaded with PNG fallback");
+            } catch (fallbackError) {
+                console.error("Fallback also failed:", fallbackError);
+            }
         }
     }
     public drawGame(game: ClientGame) {
@@ -71,13 +87,20 @@ export class GameRenderer {
         this.ctx.translate(game.player.x, game.player.y);
         this.ctx.rotate(-((game.player.rotation * Math.PI) / 180));
         
-        this.atlasManager.drawTexture(
-            "32px",
-            "blue-ship",
-            this.ctx,
-            -16, // Center the 32x32 sprite
-            -16
-        );
+        // Check if atlas is loaded before drawing
+        if (this.atlasManager.areAllLoaded()) {
+            this.atlasManager.drawTexture(
+                "32px",
+                "white-ship-engine", // This sprite exists in your atlas
+                this.ctx,
+                -16, // Center the 32x32 sprite
+                -16
+            );
+        } else {
+            // Fallback: draw a simple rectangle while atlas loads
+            this.ctx.fillStyle = "#00ff00";
+            this.ctx.fillRect(-16, -16, 32, 32);
+        }
         
         this.ctx.rotate((game.player.rotation * Math.PI) / 180);
         this.ctx.translate(-game.player.x, -game.player.y);
