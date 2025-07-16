@@ -108,7 +108,7 @@ export class GameRenderer {
     //         -16, // Center the 32x32 sprite
     //         -16,
     //       );
-    console.log(game.players)
+    // console.log(game.players)
     for (let i = 0; i < game.players.length; i++) {
       for (let a = 0; a < game.players[i].flames.length; a++) {
         this.ctx.translate(
