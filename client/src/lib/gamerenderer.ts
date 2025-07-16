@@ -98,6 +98,13 @@ export class GameRenderer {
     this.ctx.translate(game.camera.x, game.camera.y);
     // console.log(game.players)
     for(let i = 0; i < game.players.length;i++){
+      for(let a = 0; a < game.players[i].flames.length;a++){
+        this.ctx.translate(game.players[i].flames[a].x, game.players[i].flames[a].y);
+        this.ctx.fillRect(0,0,5,5);
+        this.ctx.translate(-game.players[i].flames[a].x, -game.players[i].flames[a].y);
+
+      }
+
       this.ctx.translate(game.players[i].x, game.players[i].y);
       this.ctx.rotate(-((game.players[i].rotation * Math.PI) / 180));
 
@@ -107,9 +114,10 @@ export class GameRenderer {
       // Check if atlas is loaded before drawing
       if (this.atlasManager.areAllLoaded()) {
         // Choose texture based on engine state and selected ship
-        const shipTexture = game.players[i].engineActive
-          ? game.players[i].shipEngineSprite
-          : game.players[i].shipSprite;
+        // const shipTexture = game.players[i].engineActive
+        //   ? game.players[i].shipEngineSprite
+        //   : game.players[i].shipSprite;
+        const shipTexture = game.players[i].shipSprite;
 
         this.atlasManager.drawTexture(
           "entities",

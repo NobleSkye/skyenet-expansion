@@ -1,4 +1,4 @@
-import type { Game } from "../../../core/src/types";
+import type { Game, Stars } from "../../../core/src/types";
 
 export class Player {
   x = 500;
@@ -7,6 +7,7 @@ export class Player {
   velY = 0;
   rotation = 0;
   velR = 0;
+  flames:Stars=[];
   game = {} as Game;
   engineActive = false; // Track engine state
   shipSprite = "gray-ship"; // Default ship
@@ -33,6 +34,7 @@ export class Player {
       this.engineActive = true; // Set engine active when W is pressed
       this.velY -= Math.cos((this.rotation * Math.PI) / 180) / 3;
       this.velX -= Math.sin((this.rotation * Math.PI) / 180) / 3;
+      this.flames[this.flames.length]={x:this.x,y:this.y,z:0}
     }
     if (this.game.keys.isKeyPressed("KeyS")) {
       // S key now applies stronger friction (opposite of engine thrust)
