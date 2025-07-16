@@ -1,7 +1,9 @@
-import { ClientGame } from "./lib/clientgame.ts";
-import { GameRenderer } from "./lib/gamerenderer.ts";
-import { GameMenu } from "./lib/gamemenu.ts";
-import { AtlasManager } from "./lib/atlasmanager.ts";
+import { ClientGame } from "./ClientGame.js";
+import { GameRenderer } from "./lib/GameRenderer.js";
+import { GameMenu } from "./lib/GameMenu.js";
+import { AtlasManager } from "./lib/AtlasManager.js";
+import { getGameID, getPlayerID, initWebSocket } from "./WebSocket.js";
+import { GameMode } from "../../core/src/types.d.js";
 
 let game: ClientGame;
 let renderer: GameRenderer;
@@ -23,6 +25,7 @@ const display = { startWidth: 1280, aspectRatio: [16, 9], scale: 0 };
 
 async function initializeGame() {
   console.log("Starting game initialization...");
+  initWebSocket();
 
   // Initialize atlas manager
   atlasManager = new AtlasManager();
@@ -61,7 +64,11 @@ async function initializeGame() {
 
   // Initialize game (but don't start it yet)
   console.log("Initializing game...");
-  game = new ClientGame();
+  console.log("[authenticating] Waiting for server response...");
+  const gameID = await getGameID();
+  const playerID = await getPlayerID();
+  console.log(`Received authentication: gameID=${gameID} playerID=${playerID}`);
+  game = new ClientGame(gameID, GameMode.FFA, playerID);
   renderer = new GameRenderer(ctx, display, game, atlasManager);
 
   console.log("Game initialization complete!");
@@ -73,8 +80,8 @@ function tick() {
   if (gameState === "menu") {
     // If game is running, render it in the background
     if (menu.getGameRunning()) {
-      game.keys.update();
-      game.player.tick();
+      game.keyManager.update();
+      game.myPlayer.tick(game);
       game.camera.tick();
       renderer.drawGame(game);
     }
@@ -88,18 +95,18 @@ function tick() {
       menu.setGameRunning(true);
       // Update player's selected ship
       const selectedShip = menu.getSelectedShip();
-      game.player.setShipType(selectedShip.sprite, selectedShip.engineSprite);
+      game.myPlayer.setShipType(selectedShip.sprite, selectedShip.engineSprite);
     }
   } else if (gameState === "playing") {
     // Check for escape key to return to menu
-    if (game.keys.wasKeyJustPressed("Escape")) {
+    if (game.keyManager.wasKeyJustPressed("Escape")) {
       gameState = "menu";
       menu.setScreen("main");
       return;
     }
 
-    game.keys.update();
-    game.player.tick();
+    game.keyManager.update();
+    game.myPlayer.tick(game);
     game.camera.tick();
     renderer.drawGame(game);
   }

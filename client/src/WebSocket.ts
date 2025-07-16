@@ -2,10 +2,24 @@ import {
   AuthenticationMessage,
   AuthenticationMessageCallback,
   StatusMessage,
-} from "../../core/src/schemas";
-import { WebSocketMessageType, type MessageType } from "../../core/src/types";
+} from "../../core/src/Schemas";
+import {
+  WebSocketMessageType,
+  type GameID,
+  type MessageType,
+  type PlayerID,
+} from "../../core/src/types.d";
 
-export function init() {
+let resolveGameID: (value: string | PromiseLike<string>) => void;
+const gameID: Promise<GameID> = new Promise((resolve) => {
+  resolveGameID = resolve;
+});
+let resolvePlayerID: (value: string | PromiseLike<string>) => void;
+const playerID: Promise<GameID> = new Promise((resolve) => {
+  resolvePlayerID = resolve;
+});
+
+export function initWebSocket() {
   let webSocketUrl = "ws://";
   if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
     webSocketUrl += "localhost:8081";
@@ -58,5 +72,15 @@ function handleStatusMessage(
 function handleAuthenticationCallbackMessage(
   msg: MessageType.AuthenticationMessageCallback,
 ) {
-  console.log(`My playerID: ${msg.playerID}`);
+  console.log(`My playerID: ${msg.playerID}\nGameID: ${msg.gameID}`);
+  resolveGameID(msg.gameID);
+  resolvePlayerID(msg.playerID);
+}
+
+export async function getGameID(): Promise<GameID> {
+  return await gameID;
+}
+
+export async function getPlayerID(): Promise<PlayerID> {
+  return await playerID;
 }
