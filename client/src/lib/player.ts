@@ -7,7 +7,7 @@ export class Player {
   velY = 0;
   rotation = 0;
   velR = 0;
-  game = {} as Game;
+  game: Game;
   engineActive = false; // Track engine state
   shipSprite = "gray-ship"; // Default ship
   shipEngineSprite = "gray-ship-engine"; // Default engine sprite
