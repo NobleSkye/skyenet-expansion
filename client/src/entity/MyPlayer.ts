@@ -13,8 +13,13 @@ export class MyPlayer extends ClientPlayer {
 
     if (game.keyManager.isKeyPressed("KeyW")) {
       this.engineActive = true; // Set engine active when W is pressed
-      this.velY -= Math.cos((this.rotation * Math.PI) / 180) / 3;
-      this.velX -= Math.sin((this.rotation * Math.PI) / 180) / 3;
+      const horizontal=Math.cos((this.rotation * Math.PI) / 180) / 3
+      const vertical=Math.sin((this.rotation * Math.PI) / 180) / 3
+      for(let i = 0; i < 10; i++){
+        this.flames[this.flames.length]={x:this.x,y:this.y,z:(Math.random()/4)+.3,velX:this.velX+horizontal+(Math.random()-.5)*2,velY:this.velY+vertical+(Math.random()-.5)*2,size:10}
+      }
+      this.velY -= horizontal;
+      this.velX -= vertical;
     }
     if (game.keyManager.isKeyPressed("KeyS")) {
       // S key now applies stronger friction (opposite of engine thrust)
@@ -42,6 +47,17 @@ export class MyPlayer extends ClientPlayer {
     }
     if (this.rotation <= 0) {
       this.rotation += 360;
+    }
+    for(let i = 0; i<this.flames.length; i++){
+      this.flames[i].x+=this.flames[i].velX!
+      this.flames[i].y+=this.flames[i].velY!
+      this.flames[i].velY! *= 0.99; // Reduced friction to keep player moving longer
+      this.flames[i].velX! *= 0.99; // Reduced friction to keep player moving longer
+      this.flames[i].size!-=this.flames[i].z!
+      if(this.flames[i].size!<=0){
+        this.flames.splice(i,1)
+        i--
+      }
     }
   }
 

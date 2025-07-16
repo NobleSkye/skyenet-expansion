@@ -27,23 +27,23 @@ export class GameRenderer {
 
     this.ctx.fillStyle = "#fff";
     for (let i = 0; i < this.stars.length; i++) {
-      if (this.stars[i].x + game.camera.x / this.stars[i].z > 1300) {
+      if (this.stars[i].x + game.camera.x / this.stars[i].z! > 1300) {
         this.stars[i].x -= 1330;
       }
-      if (this.stars[i].x + game.camera.x / this.stars[i].z < -30) {
+      if (this.stars[i].x + game.camera.x / this.stars[i].z! < -30) {
         this.stars[i].x += 1330;
       }
-      if (this.stars[i].y + game.camera.y / this.stars[i].z > 740) {
+      if (this.stars[i].y + game.camera.y / this.stars[i].z! > 740) {
         this.stars[i].y -= 770;
       }
-      if (this.stars[i].y + game.camera.y / this.stars[i].z < -30) {
+      if (this.stars[i].y + game.camera.y / this.stars[i].z! < -30) {
         this.stars[i].y += 770;
       }
       this.ctx.fillRect(
-        this.stars[i].x + game.camera.x / this.stars[i].z,
-        this.stars[i].y + game.camera.y / this.stars[i].z,
-        10 - this.stars[i].z,
-        10 - this.stars[i].z,
+        this.stars[i].x + game.camera.x / this.stars[i].z!,
+        this.stars[i].y + game.camera.y / this.stars[i].z!,
+        10 - this.stars[i].z!,
+        10 - this.stars[i].z!,
       );
     }
 
@@ -99,29 +99,56 @@ export class GameRenderer {
     this.ctx.translate(game.camera.x, game.camera.y);
     this.ctx.translate(game.myPlayer.x, game.myPlayer.y);
     this.ctx.rotate(-((game.myPlayer.rotation * Math.PI) / 180));
+    // console.log(game.players)
+    for(let i = 0; i < game.players.length;i++){
+      for(let a = 0; a < game.players[i].flames.length;a++){
+        this.ctx.translate(game.players[i].flames[a].x, game.players[i].flames[a].y);
+        this.ctx.fillStyle=`rgb(${(70*game.players[i].flames[a].size!)+10},${(50*game.players[i].flames[a].size!/2)+10},10)`
+        this.ctx.fillRect(-game.players[i].flames[a].size!/2,-game.players[i].flames[a].size!/2,game.players[i].flames[a].size!,game.players[i].flames[a].size!);
+        this.ctx.translate(-game.players[i].flames[a].x, -game.players[i].flames[a].y);
 
-    // Apply 3  x scale for player ship
-    this.ctx.scale(3, 3);
+      }
 
     // Check if atlas is loaded before drawing
     if (this.atlasManager.areAllLoaded()) {
-      // Choose texture based on engine state and selected ship
-      const shipTexture = game.myPlayer.engineActive
-        ? game.myPlayer.shipEngineSprite
-        : game.myPlayer.shipSprite;
+      // // Choose texture based on engine state and selected ship
+      // const shipTexture = game.myPlayer.engineActive
+      //   ? game.myPlayer.shipEngineSprite
+      //   : game.myPlayer.shipSprite;
+      this.ctx.translate(game.players[i].x, game.players[i].y);
+      this.ctx.rotate(-((game.players[i].rotation * Math.PI) / 180));
 
-      this.atlasManager.drawTexture(
-        "entities",
-        shipTexture,
-        this.ctx,
-        -16, // Center the 32x32 sprite
-        -16,
-      );
-    } else {
-      // Fallback: draw a simple rectangle while atlas loads
-      console.log("Atlas not loaded, showing green rectangle");
-      this.ctx.fillStyle = "#00ff00";
-      this.ctx.fillRect(-16, -16, 32, 32);
+      // Apply 3  x scale for player ship
+      this.ctx.scale(3, 3);
+
+      // Check if atlas is loaded before drawing
+      if (this.atlasManager.areAllLoaded()) {
+        // Choose texture based on engine state and selected ship
+        // const shipTexture = game.players[i].engineActive
+        //   ? game.players[i].shipEngineSprite
+        //   : game.players[i].shipSprite;
+        const shipTexture = game.players[i].shipSprite;
+
+        this.atlasManager.drawTexture(
+          "entities",
+          shipTexture,
+          this.ctx,
+          -16, // Center the 32x32 sprite
+          -16,
+        );
+      } else {
+        // Fallback: draw a simple rectangle while atlas loads
+        console.log("Atlas not loaded, showing green rectangle");
+        this.ctx.fillStyle = "#00ff00";
+        this.ctx.fillRect(-16, -16, 32, 32);
+      }
+
+      // Reset scale after drawing
+      this.ctx.scale(0.5, 0.5);
+
+      this.ctx.rotate((game.myPlayer.rotation * Math.PI) / 180);
+      this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
+
     }
 
     // Reset scale after drawing
@@ -131,6 +158,7 @@ export class GameRenderer {
     this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
     this.ctx.translate(-game.camera.x, -game.camera.y);
   }
+}
 
   private resize() {
     this.ctx.canvas.width = window.innerWidth;

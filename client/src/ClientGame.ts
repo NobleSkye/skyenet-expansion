@@ -8,7 +8,7 @@ export class ClientGame extends Game {
   public keyManager = new KeyManager();
   public camera = new Camera(this);
   public myPlayer: MyPlayer;
-  public stars: { x: number; y: number; z: number }[] = [];
+  public stars: { x: number; y: number; z?: number; velX?: number; velY?: number ; size?: number }[] = [];
 
   constructor(gameID: GameID, gameMode: GameMode, myPlayerID: PlayerID) {
     super(gameID, gameMode);
