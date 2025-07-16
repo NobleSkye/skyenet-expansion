@@ -26,6 +26,17 @@ export interface Game {
   player:Player
   
 }
+export interface Stars {
+  [index:number]:Star
+  length:number
+}
+export interface Star {
+  x: number;
+  y: number;
+  z: number;
+  
+}
+
 export interface KeyMan {
   wasKeyJustPressed: (KeyCode:string) => boolean
   isKeyPressed: (KeyCode:string) => boolean
