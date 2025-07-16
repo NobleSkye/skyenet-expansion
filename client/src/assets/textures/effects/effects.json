@@ -1,5 +1,5 @@
 {
-    "large-explosion": { "x": 0, "y": 0, "width": 80, "height": 80 },
-    "medium-explosion": { "x": 32, "y": 0, "width": 64, "height": 64 },
-    "small-explosion": { "x": 64, "y": 0, "width": 32, "height": 32 }
+  "large-explosion": { "x": 0, "y": 0, "width": 80, "height": 80 },
+  "medium-explosion": { "x": 32, "y": 0, "width": 64, "height": 64 },
+  "small-explosion": { "x": 64, "y": 0, "width": 32, "height": 32 }
 }

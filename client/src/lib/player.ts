@@ -11,7 +11,7 @@ export class Player {
   engineActive = false; // Track engine state
   shipSprite = "gray-ship"; // Default ship
   shipEngineSprite = "gray-ship-engine"; // Default engine sprite
-  
+
   constructor(Game: Game) {
     this.game = Game;
   }
@@ -28,7 +28,7 @@ export class Player {
   velocityChange() {
     // Reset engine state each frame
     this.engineActive = false;
-    
+
     if (this.game.keys.isKeyPressed("KeyW")) {
       this.engineActive = true; // Set engine active when W is pressed
       this.velY -= Math.cos((this.rotation * Math.PI) / 180) / 3;

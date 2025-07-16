@@ -1,4 +1,3 @@
-
 ## File Structure
 
 ```
@@ -13,7 +12,6 @@ client/src/assets/atlas/
 
 ## Usage Examples
 
-
 ```typescript
 import { AtlasManager } from "./atlasmanager";
 
@@ -22,9 +20,9 @@ const atlasManager = new AtlasManager();
 
 // Load atlases
 await atlasManager.loadAtlas(
-    "32px",
-    "./src/assets/atlas/32px-atlas/spritesheet-32px.webp",
-    "./src/assets/atlas/32px-atlas/atlas.json"
+  "32px",
+  "./src/assets/atlas/32px-atlas/spritesheet-32px.webp",
+  "./src/assets/atlas/32px-atlas/atlas.json",
 );
 
 // Draw a texture
@@ -37,8 +35,9 @@ atlasManager.drawTileByGrid("32px", 1, 1, ctx, x, y);
 ### Grid System
 
 For a 32x32 grid:
+
 - Grid (1,1) = pixels 0-32 x, 0-32 y
-- Grid (2,1) = pixels 32-64 x, 0-32 y  
+- Grid (2,1) = pixels 32-64 x, 0-32 y
 - Grid (1,2) = pixels 0-32 x, 32-64 y
 - Grid (2,2) = pixels 32-64 x, 32-64 y
 
