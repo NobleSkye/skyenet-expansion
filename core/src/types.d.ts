@@ -22,26 +22,20 @@ declare namespace MessageType {
 }
 
 export interface Game {
-  keys:KeyMan
-  player:Player
-  
+  keys: KeyMan;
+  player: Player;
 }
-export interface Stars {
-  [index:number]:Star
-  length:number
-}
-export interface Star {
-  x: number;
-  y: number;
-  z: number;
-  
-}
+/*export interface Stars {
+  [index: number]: {x:number,y:number,z:number};
+  length: number;
+}*/
+export type Stars = {x:number,y:number,z:number}[];
 
 export interface KeyMan {
-  wasKeyJustPressed: (KeyCode:string) => boolean
-  isKeyPressed: (KeyCode:string) => boolean
-  setKeyPressed: (KeyCode:string, SetState:boolean) => void
-  update: () => void
+  wasKeyJustPressed: (KeyCode: string) => boolean;
+  isKeyPressed: (KeyCode: string) => boolean;
+  setKeyPressed: (KeyCode: string, SetState: boolean) => void;
+  update: () => void;
 }
 export interface Player {
   x: number;
@@ -50,5 +44,4 @@ export interface Player {
   velY: number;
   rotation: number;
   tick: () => void;
-  
 }
