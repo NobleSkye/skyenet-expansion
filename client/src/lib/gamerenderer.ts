@@ -1,29 +1,42 @@
 import type { ClientGame } from "./clientgame";
-import { TextureAtlas, type TextureRegion } from "./textureatlas";
+import { AtlasManager } from "./atlasmanager";
 
 export class GameRenderer {
     private ctx;
     private display;
     private stars;
-    private textureAtlas: TextureAtlas;
+    private atlasManager: AtlasManager;
     
     constructor(ctx: CanvasRenderingContext2D, display: { startWidth: number, aspectRatio: number[], scale: number }, game: ClientGame) {
         this.ctx = ctx;
         this.display = display;
         this.stars = game.stars;
         
-        // Define your sprite sheet layout
-        const atlasData: Record<string, TextureRegion> = {
-            "blue-ship": { x: 0, y: 0, width: 32, height: 32 },
-            "red-ship": { x: 32, y: 0, width: 32, height: 32 },
-            "green-ship": { x: 64, y: 0, width: 32, height: 32 },
-            "bullet": { x: 0, y: 32, width: 8, height: 8 },
-            "explosion-1": { x: 8, y: 32, width: 16, height: 16 },
-            "explosion-2": { x: 24, y: 32, width: 16, height: 16 },
-            // Add more textures as needed
-        };
-        
-        this.textureAtlas = new TextureAtlas("./src/assets/textures/spritesheet.webp", atlasData);
+        // Initialize atlas manager
+        this.atlasManager = new AtlasManager();
+        this.loadAtlases();
+    }
+
+    private async loadAtlases() {
+        try {
+            // Load 32px atlas for ships and large objects
+            await this.atlasManager.loadAtlas(
+                "32px",
+                "./src/assets/atlas/32px-atlas/spritesheet-32px.webp",
+                "./src/assets/atlas/32px-atlas/atlas.json"
+            );
+
+            // Load 16px atlas for bullets and small objects
+            await this.atlasManager.loadAtlas(
+                "16px",
+                "./src/assets/atlas/16px-atlas/spritesheet-16px.webp",
+                "./src/assets/atlas/16px-atlas/atlas.json"
+            );
+
+            console.log("All atlases loaded successfully");
+        } catch (error) {
+            console.error("Failed to load atlases:", error);
+        }
     }
     public drawGame(game: ClientGame) {
         this.resize();
@@ -58,9 +71,10 @@ export class GameRenderer {
         this.ctx.translate(game.player.x, game.player.y);
         this.ctx.rotate(-((game.player.rotation * Math.PI) / 180));
         
-        this.textureAtlas.drawTexture(
-            this.ctx,
+        this.atlasManager.drawTexture(
+            "32px",
             "blue-ship",
+            this.ctx,
             -16, // Center the 32x32 sprite
             -16
         );
