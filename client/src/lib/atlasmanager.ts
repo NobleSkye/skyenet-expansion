@@ -94,16 +94,22 @@ export class AtlasManager {
         
         // Load 32px atlas
         await manager.loadAtlas(
-            "32px",
-            "./src/assets/atlas/32px-atlas/spritesheet-32x.webp",
-            "./src/assets/atlas/32px-atlas/atlas.json"
+            "entities",
+            "./src/assets/sprites/entities.webp",
+            "./src/assets/sprites/entities.json"
         );
 
         // Load 16px atlas
         await manager.loadAtlas(
-            "16px",
-            "./src/assets/atlas/16px-atlas/spritesheet-16x.webp",
-            "./src/assets/atlas/16px-atlas/atlas.json"
+            "effects",
+            "./src/assets/effects/effects.webp",
+            "./src/assets/effects/effects.json"
+        );
+
+                await manager.loadAtlas(
+            "items",
+            "./src/assets/textures/items/items.webp",
+            "./src/assets/textures/items/items.json"
         );
 
         return manager;

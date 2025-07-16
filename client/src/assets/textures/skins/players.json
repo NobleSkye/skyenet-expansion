@@ -1,0 +1,32 @@
+{
+  "ships": [
+    {
+      "id": "gray-ship",
+      "name": "Gray Fighter",
+      "description": "A reliable starter ship with balanced stats",
+      "sprite": "gray-ship",
+      "engineSprite": "gray-ship-engine"
+    },
+    {
+      "id": "blue-ship",
+      "name": "Blue Interceptor",
+      "description": "Fast and agile, perfect for hit-and-run tactics",
+      "sprite": "blue-ship",
+      "engineSprite": "blue-ship-engine"
+    },
+    {
+      "id": "white-ship",
+      "name": "White Cruiser",
+      "description": "Heavy armor and powerful weapons",
+      "sprite": "white-ship",
+      "engineSprite": "white-ship-engine"
+    },
+    {
+      "id": "black-ship",
+      "name": "Black Stealth",
+      "description": "Advanced stealth technology for covert operations",
+      "sprite": "black-ship",
+      "engineSprite": "black-ship-engine"
+    }
+  ]
+}

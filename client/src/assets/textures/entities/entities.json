@@ -1,0 +1,14 @@
+{ 
+    "blue-ship": { "x": 0, "y": 0, "width": 32, "height": 32 },
+    "blue-ship-engine": { "x": 32, "y": 0, "width": 32, "height": 32 },
+    "white-ship": { "x": 64, "y": 0, "width": 32, "height": 32 },
+    "white-ship-engine": { "x": 96, "y": 0, "width": 32, "height": 32 },
+    "gray-ship": { "x": 128, "y": 0, "width": 32, "height": 32 },
+    "gray-ship-engine": { "x": 160, "y": 0, "width": 32, "height": 32 },
+    "black-ship": { "x": 192, "y": 0, "width": 32, "height": 32 },
+    "black-ship-engine": { "x": 224, "y": 0, "width": 32, "height": 32 },
+    "enemy-fighter": { "x": 0, "y": 32, "width": 32, "height": 32 },
+    "boss-ship": { "x": 32, "y": 32, "width": 32, "height": 32 },
+    "asteroid": { "x": 0, "y": 64, "width": 32, "height": 32 }
+} 
+ 

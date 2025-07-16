@@ -31,6 +31,17 @@ export interface Game {
 }*/
 export type Stars = {x:number,y:number,z:number}[];
 
+export interface Asteroid {
+  x: number;
+  y: number;
+  velX: number;
+  velY: number;
+  rotation: number;
+  size: number;
+}
+
+export type Asteroids = Asteroid[];
+
 export interface KeyMan {
   wasKeyJustPressed: (KeyCode: string) => boolean;
   isKeyPressed: (KeyCode: string) => boolean;

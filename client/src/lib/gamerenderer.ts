@@ -7,57 +7,17 @@ export class GameRenderer {
     private stars;
     private atlasManager: AtlasManager;
     
-    constructor(ctx: CanvasRenderingContext2D, display: { startWidth: number, aspectRatio: number[], scale: number }, game: ClientGame) {
+    constructor(ctx: CanvasRenderingContext2D, display: { startWidth: number, aspectRatio: number[], scale: number }, game: ClientGame, atlasManager: AtlasManager) {
         this.ctx = ctx;
         this.display = display;
         this.stars = game.stars;
-        
-        // Initialize atlas manager
-        this.atlasManager = new AtlasManager();
-        this.loadAtlases();
+        this.atlasManager = atlasManager;
     }
-
-    private async loadAtlases() {
-        try {
-            console.log("Starting to load atlases...");
-            
-            // Load 32px atlas for ships and large objects
-            await this.atlasManager.loadAtlas(
-                "32px",
-                "./src/assets/atlas/32px-atlas/spritesheet-32x.webp",
-                "./src/assets/atlas/32px-atlas/atlas.json"
-            );
-            console.log("32px atlas loaded");
-
-            // Load 16px atlas for bullets and small objects
-            await this.atlasManager.loadAtlas(
-                "16px",
-                "./src/assets/atlas/16px-atlas/spritesheet-16x.webp",
-                "./src/assets/atlas/16px-atlas/atlas.json"
-            );
-            console.log("16px atlas loaded");
-
-            console.log("All atlases loaded successfully");
-        } catch (error) {
-            console.error("Failed to load atlases:", error);
-            // Try fallback with different file extensions
-            console.log("Trying fallback with .png extension...");
-            try {
-                await this.atlasManager.loadAtlas(
-                    "32px",
-                    "./src/assets/atlas/32px-atlas/spritesheet-32x.png",
-                    "./src/assets/atlas/32px-atlas/atlas.json"
-                );
-                console.log("32px atlas loaded with PNG fallback");
-            } catch (fallbackError) {
-                console.error("Fallback also failed:", fallbackError);
-            }
-        }
-    }
+    
     public drawGame(game: ClientGame) {
         this.resize();
         this.ctx.imageSmoothingEnabled = false;
-        this.ctx.fillStyle = "#000";
+        this.ctx.fillStyle = "#03050cff";
         this.ctx.fillRect(0, 0, 10000, 10000);
 
         this.ctx.fillStyle = "#fff";
@@ -82,25 +42,84 @@ export class GameRenderer {
             );
         }
         
+        // Update and draw asteroids
+        game.updateAsteroids();
+        
+        if (this.atlasManager.areAllLoaded()) {
+            for (let i = 0; i < game.asteroids.length; i++) {
+                const asteroid = game.asteroids[i];
+                
+                // Save context
+                this.ctx.save();
+                
+                // Transform to asteroid position
+                this.ctx.translate(
+                    asteroid.x + game.camera.x,
+                    asteroid.y + game.camera.y
+                );
+                this.ctx.rotate((asteroid.rotation * Math.PI) / 180);
+                this.ctx.scale(asteroid.size, asteroid.size);
+                
+                // Draw asteroid
+                this.atlasManager.drawTexture(
+                    "entities",
+                    "asteroid",
+                    this.ctx,
+                    -16, // Center the 32x32 sprite
+                    -16
+                );
+                
+                // Restore context
+                this.ctx.restore();
+            }
+        } else {
+            // Fallback: draw simple circles for asteroids
+            this.ctx.fillStyle = "#666666";
+            for (let i = 0; i < game.asteroids.length; i++) {
+                const asteroid = game.asteroids[i];
+                this.ctx.beginPath();
+                this.ctx.arc(
+                    asteroid.x + game.camera.x,
+                    asteroid.y + game.camera.y,
+                    16 * asteroid.size,
+                    0,
+                    2 * Math.PI
+                );
+                this.ctx.fill();
+            }
+        }
+        
         // Draw player ship using texture atlas
         this.ctx.translate(game.camera.x, game.camera.y);
         this.ctx.translate(game.player.x, game.player.y);
         this.ctx.rotate(-((game.player.rotation * Math.PI) / 180));
         
+        // Apply 3  x scale for player ship
+        this.ctx.scale(3, 3);
+        
         // Check if atlas is loaded before drawing
         if (this.atlasManager.areAllLoaded()) {
+            console.log("Atlas loaded, drawing ship");
+            
+            // Choose texture based on engine state and selected ship
+            const shipTexture = game.player.engineActive ? game.player.shipEngineSprite : game.player.shipSprite;
+            
             this.atlasManager.drawTexture(
-                "32px",
-                "white-ship-engine", // This sprite exists in your atlas
+                "entities",
+                shipTexture,
                 this.ctx,
                 -16, // Center the 32x32 sprite
                 -16
             );
         } else {
             // Fallback: draw a simple rectangle while atlas loads
+            console.log("Atlas not loaded, showing green rectangle");
             this.ctx.fillStyle = "#00ff00";
             this.ctx.fillRect(-16, -16, 32, 32);
         }
+        
+        // Reset scale after drawing
+        this.ctx.scale(0.5, 0.5);
         
         this.ctx.rotate((game.player.rotation * Math.PI) / 180);
         this.ctx.translate(-game.player.x, -game.player.y);

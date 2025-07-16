@@ -15,14 +15,4 @@
     "coin": { "x": 16, "y": 48, "width": 16, "height": 16 },
     "crystal": { "x": 32, "y": 48, "width": 16, "height": 16 },
     "energy-cell": { "x": 48, "y": 48, "width": 16, "height": 16 },
-    "shield-bubble": { "x": 0, "y": 64, "width": 32, "height": 32 },
-    "warp-gate": { "x": 64, "y": 64, "width": 32, "height": 32 },
-    "asteroid-1": { "x": 128, "y": 64, "width": 32, "height": 32 },
-    "asteroid-2": { "x": 192, "y": 64, "width": 32, "height": 32 },
-    "space-station-1": { "x": 0, "y": 128, "width": 32, "height": 32 },
-    "space-station-2": { "x": 64, "y": 128, "width": 32, "height": 32 },
-    "laser-red": { "x": 128, "y": 128, "width": 32, "height": 32 },
-    "laser-blue": { "x": 192, "y": 128, "width": 32, "height": 32 },
-    "explosion-1": { "x": 0, "y": 192, "width": 32, "height": 32 },
-    "explosion-2": { "x": 64, "y": 192, "width": 32, "height": 32 }
 }

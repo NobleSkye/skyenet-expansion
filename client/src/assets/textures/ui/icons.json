@@ -1,0 +1,6 @@
+{
+    "left_click": { "x": 0, "y": 0, "width": 16, "height": 16 },
+    "right_click": { "x": 16, "y": 0, "width": 16, "height": 16 },
+    "mouse": { "x": 32, "y": 0, "width": 16, "height": 16 },
+    "wasd": { "x": 48, "y": 0, "width": 16, "height": 16 }
+}
