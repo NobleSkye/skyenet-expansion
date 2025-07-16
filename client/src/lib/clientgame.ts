@@ -5,7 +5,8 @@ import type { Stars, Asteroids } from "../../../core/src/types.js";
 
 export class ClientGame {
   public keys = new KeyManager();
-  public player = new Player(this) as Player;
+  public player: Player = new Player(this);
+  public players: Player[] = [this.player];
   public camera = new Camera(this);
   public stars: Stars;
   public asteroids: Asteroids;
