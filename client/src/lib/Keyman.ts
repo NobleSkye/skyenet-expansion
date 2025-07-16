@@ -1,19 +1,19 @@
 export class KeyManager {
-  keyBuffer;
-  keysCurrentlyPressed;
-  keysPressedLastFrame;
+  keyBuffer: boolean[];
+  keysCurrentlyPressed: boolean[];
+  keysPressedLastFrame: boolean[];
 
   constructor() {
     //
 
-    this.keyBuffer = new Array();
-    this.keysCurrentlyPressed = new Array();
-    this.keysPressedLastFrame = new Array();
+    this.keyBuffer = [];
+    this.keysCurrentlyPressed = [];
+    this.keysPressedLastFrame = [];
 
     document.addEventListener(
       "keydown",
       (event) => {
-        var code = event.code;
+        const code = event.code;
         this.setKeyPressed(code, true);
       },
       false,
@@ -22,7 +22,7 @@ export class KeyManager {
     document.addEventListener(
       "keyup",
       (event) => {
-        var code = event.code;
+        const code = event.code;
         this.setKeyPressed(code, false);
       },
       false,

@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { WebSocketMessageType } from "./types";
+import { WebSocketMessageType } from "./types.d";
 
 export const BaseWebSocketMessageSchema = z.object({
   playerID: z.string(),
@@ -38,4 +38,5 @@ export const AuthenticationMessageCallback = z.object({
     .literal(WebSocketMessageType.AuthenticationCallback)
     .default(WebSocketMessageType.AuthenticationCallback),
   playerID: z.string(),
+  gameID: z.string(),
 });
