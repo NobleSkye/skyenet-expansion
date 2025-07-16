@@ -1,0 +1,13 @@
+{
+  "blue-ship": { "x": 0, "y": 0, "width": 32, "height": 32 },
+  "red-ship": { "x": 32, "y": 0, "width": 32, "height": 32 },
+  "green-ship": { "x": 64, "y": 0, "width": 32, "height": 32 },
+  "bullet": { "x": 0, "y": 32, "width": 8, "height": 8 },
+  "explosion-1": { "x": 8, "y": 32, "width": 16, "height": 16 },
+  "explosion-2": { "x": 24, "y": 32, "width": 16, "height": 16 },
+  "asteroid-small": { "x": 40, "y": 32, "width": 16, "height": 16 },
+  "asteroid-medium": { "x": 56, "y": 32, "width": 24, "height": 24 },
+  "asteroid-large": { "x": 80, "y": 32, "width": 32, "height": 32 },
+  "powerup-health": { "x": 112, "y": 32, "width": 16, "height": 16 },
+  "powerup-weapon": { "x": 128, "y": 32, "width": 16, "height": 16 }
+}
