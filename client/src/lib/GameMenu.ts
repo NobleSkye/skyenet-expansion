@@ -164,6 +164,7 @@ export class GameMenu {
   public render() {
     // Handle canvas resizing like the original game
     this.resize();
+    this.ctx.imageSmoothingEnabled = false;
 
     // Clear canvas with transparent background
     this.ctx.fillStyle = "rgba(10, 10, 10, 0.7)"; // Semi-transparent dark overlay
