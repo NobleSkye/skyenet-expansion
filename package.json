@@ -9,7 +9,7 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "dev:client": "vite client",
-    "dev:server": "tsx server/src/main.ts",
+    "dev:server": "tsx server/src/Main.ts",
     "format:fix": "pnpm exec prettier . --write",
     "format:check": "npx prettier . --check",
     "lint": "pnpm dlx eslint ."

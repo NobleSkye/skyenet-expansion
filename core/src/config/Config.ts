@@ -1,4 +1,7 @@
+import { ShipEngineSprite, ShipSprite } from "../types";
+
 export interface Config {
-  defaultShipSprite: string;
-  defaultShipEngineSprite: string;
+  defaultShipSprite: ShipSprite;
+  defaultShipEngineSprite: ShipEngineSprite;
+  defaultSpawnCoords: { x: number; y: number };
 }

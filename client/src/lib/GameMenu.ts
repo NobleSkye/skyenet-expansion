@@ -1,11 +1,12 @@
+import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types";
 import { AtlasManager } from "./AtlasManager";
 
 export interface Ship {
   id: string;
   name: string;
   description: string;
-  sprite: string;
-  engineSprite: string;
+  sprite: ShipSprite;
+  engineSprite: ShipEngineSprite;
 }
 
 export interface GameMenuState {

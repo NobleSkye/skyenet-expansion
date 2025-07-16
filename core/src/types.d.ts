@@ -79,4 +79,5 @@ export enum GameMode {
   FFA,
 }
 
-export const alphabetForID = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+export const alphabetForID =
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

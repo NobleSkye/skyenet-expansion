@@ -1,54 +1,36 @@
-import type { Game } from "../../../core/src/types";
+import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types";
+import type { ClientGame } from "../ClientGame";
+import { ClientPlayer } from "./ClientPlayer";
 
-export class Player {
-  x = 500;
-  y = 500;
-  velX = 0;
-  velY = 0;
-  rotation = 0;
-  velR = 0;
-  game = {} as Game;
-  engineActive = false; // Track engine state
-  shipSprite = "gray-ship"; // Default ship
-  shipEngineSprite = "gray-ship-engine"; // Default engine sprite
-
-  constructor(Game: Game) {
-    this.game = Game;
-  }
-
-  setShipType(shipSprite: string, engineSprite: string) {
-    this.shipSprite = shipSprite;
-    this.shipEngineSprite = engineSprite;
-  }
-
-  tick() {
-    this.velocityChange();
+export class MyPlayer extends ClientPlayer {
+  public tick(game: ClientGame) {
+    this.velocityChange(game);
     this.move();
   }
-  velocityChange() {
+  private velocityChange(game: ClientGame) {
     // Reset engine state each frame
     this.engineActive = false;
 
-    if (this.game.keys.isKeyPressed("KeyW")) {
+    if (game.keyManager.isKeyPressed("KeyW")) {
       this.engineActive = true; // Set engine active when W is pressed
       this.velY -= Math.cos((this.rotation * Math.PI) / 180) / 3;
       this.velX -= Math.sin((this.rotation * Math.PI) / 180) / 3;
     }
-    if (this.game.keys.isKeyPressed("KeyS")) {
+    if (game.keyManager.isKeyPressed("KeyS")) {
       // S key now applies stronger friction (opposite of engine thrust)
       this.velY *= 0.9; // Stronger friction than normal
       this.velX *= 0.9;
       this.velR *= 0.9;
     }
-    if (this.game.keys.isKeyPressed("KeyA")) {
+    if (game.keyManager.isKeyPressed("KeyA")) {
       this.velR += 0.1;
     }
-    if (this.game.keys.isKeyPressed("KeyD")) {
+    if (game.keyManager.isKeyPressed("KeyD")) {
       this.velR -= 0.1;
     }
   }
 
-  move() {
+  private move() {
     this.y += this.velY;
     this.x += this.velX;
     this.rotation += this.velR;
@@ -61,5 +43,10 @@ export class Player {
     if (this.rotation <= 0) {
       this.rotation += 360;
     }
+  }
+
+  public setShipType(shipSprite: ShipSprite, engineSprite: ShipEngineSprite) {
+    this.shipSprite = shipSprite;
+    this.shipEngineSprite = engineSprite;
   }
 }

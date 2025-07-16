@@ -5,12 +5,13 @@ import {
   ServerError,
   StatusMessage,
 } from "../../core/src/Schemas";
-import { WebSocketMessageType } from "../../core/src/types";
-import { Game } from "./Game";
+import { GameMode, WebSocketMessageType } from "../../core/src/types.d";
+import { ServerGame } from "./ServerGame";
+import { genStringID } from "../../core/src/util/Util";
 
 const wss = new WebSocketServer({ port: 8081 });
 
-const game = new Game();
+const game = new ServerGame(genStringID(8), GameMode.FFA);
 
 wss.on("connection", async (ws) => {
   ws.on("error", console.error);
@@ -50,7 +51,8 @@ wss.on("connection", async (ws) => {
       ws.send(
         JSON.stringify(
           AuthenticationMessageCallback.parse({
-            playerID: game.generateRandomPlayerID(),
+            playerID: ServerGame.generateRandomPlayerID(),
+            gameID: game.gameID,
           }),
         ),
       );
