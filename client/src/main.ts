@@ -1,5 +1,5 @@
 // import spaceship from "./sprites/spaceship.webp";
-// import * as websocket from "./websocket";  aaa
+// import * as websocket from "./websocket";  aaaaaa
 import type { Stars } from "../../core/src/types";
 import { imports } from "./lib/imports.ts";
 
