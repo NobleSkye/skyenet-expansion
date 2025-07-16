@@ -163,7 +163,7 @@ export class GameMenu {
 
   public render() {
     // Handle canvas resizing like the original game
-    this.resize();
+    // this.resize();
     this.ctx.imageSmoothingEnabled = false;
 
     // Clear canvas with transparent background
