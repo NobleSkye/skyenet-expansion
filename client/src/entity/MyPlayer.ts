@@ -8,7 +8,7 @@ export class MyPlayer extends ClientPlayer {
     this.velocityChange(game);
     this.move();
   }
-  private velocityChange(game: ClientGame) {
+  private velocityChange(wgame: ClientGame) {
     // Reset engine state each frame
     this.engineActive = false;
 
