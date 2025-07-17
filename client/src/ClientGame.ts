@@ -29,7 +29,7 @@ export class ClientGame extends Game {
       this.config.defaultShipSprite,
       this.config.defaultShipEngineSprite,
     );
-    this.players[0]=this.myPlayer
+    this.players[0] = this.myPlayer;
     for (let i = 0; i < 50; i++) {
       this.stars.push({
         x: -30 + Math.random() * 1330,

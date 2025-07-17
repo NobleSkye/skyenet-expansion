@@ -1,4 +1,4 @@
-import { PlayerID, ShipEngineSprite, ShipSprite } from "../types";
+import { PlayerID, ShipEngineSprite, ShipSprite } from "../types.d";
 import { Entity } from "./Entity";
 
 export class Player extends Entity {
@@ -8,8 +8,8 @@ export class Player extends Entity {
   velR: number = 0;
   rotation: number;
   engineActive: boolean = false;
-  shipSprite: ShipSprite = "gray-ship";
-  shipEngineSprite: ShipEngineSprite = "gray-ship-engine";
+  shipSprite: ShipSprite = ShipSprite.Gray;
+  shipEngineSprite: ShipEngineSprite = ShipEngineSprite.Gray;
 
   constructor(
     playerID: PlayerID,

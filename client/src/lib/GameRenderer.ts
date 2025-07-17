@@ -163,7 +163,7 @@ export class GameRenderer {
         }
 
         // Reset scale after drawing
-        this.ctx.scale(1/3, 1/3);
+        this.ctx.scale(1 / 3, 1 / 3);
 
         this.ctx.rotate((game.players[i].rotation * Math.PI) / 180);
         this.ctx.translate(-game.players[i].x, -game.players[i].y);
@@ -179,7 +179,7 @@ export class GameRenderer {
     // this.ctx.scale(
     //   .7,.7
     // );
-      // this.ctx.translate(1280/2, 720/2);
+    // this.ctx.translate(1280/2, 720/2);
   }
 
   private resize() {

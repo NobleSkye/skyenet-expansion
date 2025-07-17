@@ -1,4 +1,4 @@
-import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types";
+import { ShipEngineSprite, ShipSprite } from "../../../core/src/types.d";
 import { AtlasManager } from "./AtlasManager";
 
 export interface Ship {
@@ -39,8 +39,8 @@ export class GameMenu {
         id: "gray-ship",
         name: "Gray Fighter",
         description: "A reliable starter ship with balanced stats",
-        sprite: "gray-ship",
-        engineSprite: "gray-ship-engine",
+        sprite: ShipSprite.Gray,
+        engineSprite: ShipEngineSprite.Gray,
       },
       ships: [],
       isGameRunning: false,

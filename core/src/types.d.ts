@@ -11,6 +11,9 @@ export enum WebSocketMessageType {
   Movement,
   Authentication,
   AuthenticationCallback,
+  PlayerJoin,
+  PlayerJoinCallback,
+  UpdatePlayers,
 }
 
 declare namespace MessageType {
@@ -21,17 +24,18 @@ declare namespace MessageType {
   >;
 }
 
-export type ShipSprite =
-  | "gray-ship"
-  | "blue-ship"
-  | "white-ship"
-  | "black-ship";
-export type ShipEngineSprite =
-  | "gray-ship-engine"
-  | "blue-ship-engine"
-  | "white-ship-engine"
-  | "black-ship-engine";
-
+export enum ShipSprite {
+  Gray = "gray-ship",
+  Blue = "blue-ship",
+  White = "white-ship",
+  Black = "black-ship",
+}
+export enum ShipEngineSprite {
+  Gray = "gray-ship-engine",
+  Blue = "blue-ship-engine",
+  White = "white-ship-engine",
+  Black = "black-ship-engine",
+}
 export type PlayerID = string;
 export type GameID = string;
 export type EntityID = string;

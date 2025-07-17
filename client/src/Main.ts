@@ -84,7 +84,7 @@ function tick() {
       game.myPlayer.tick(game);
       game.camera.tick();
     }
-      renderer.drawGame(game);
+    renderer.drawGame(game);
 
     // Render menu on top
     menu.render();
