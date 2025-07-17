@@ -4,59 +4,68 @@ import { WebSocketMessageType } from "../../../core/src/types";
 import { WsMessageHandler } from "./handler/Handler";
 
 export interface SocketMessageData {
-    socket: WebSocket;
-    socketData: {
-        playerID?: string;
-    };
-    message: RawData;
+  socket: WebSocket;
+  socketData: {
+    playerID?: string;
+  };
+  message: RawData;
 }
 
 export class WebSocketServerManager {
-    public wss;
-    private handlers: WsMessageHandler[];
+  public wss;
+  private handlers: WsMessageHandler[];
 
-    constructor() {
-        this.handlers = [];
-        this.wss = new WebSocketServer({ port: 8081 });
+  constructor() {
+    this.handlers = [];
+    this.wss = new WebSocketServer({ port: 8081 });
 
-        this.wss.on("connection", async (ws) => {
-            const socketData: { playerID?: string } = { playerID: undefined };
-            ws.on("error", console.error);
+    this.wss.on("connection", async (ws) => {
+      const socketData: { playerID?: string } = { playerID: undefined };
+      ws.on("error", console.error);
 
-            ws.on("message", async (data) => {
-                console.log(`Received websocket message: ${data}`);
-                let json;
-                try {
-                    json = JSON.parse(data.toString());
-                } catch (e) {
-                    console.error(e);
-                    ws.send(
-                        JSON.stringify(ServerError.parse({ message: "Failed to parse JSON" })),
-                    );
-                    return;
-                }
-                if (typeof json.type === "undefined") {
-                    ws.send(
-                        JSON.stringify(
-                            ServerError.parse({ message: "json.type is of type 'undefined'" }),
-                        ),
-                    );
-                    return;
-                }
+      ws.on("message", async (data) => {
+        console.log(`Received websocket message: ${data}`);
+        let json;
+        try {
+          json = JSON.parse(data.toString());
+        } catch (e) {
+          console.error(e);
+          ws.send(
+            JSON.stringify(
+              ServerError.parse({ message: "Failed to parse JSON" }),
+            ),
+          );
+          return;
+        }
+        if (typeof json.type === "undefined") {
+          ws.send(
+            JSON.stringify(
+              ServerError.parse({
+                message: "json.type is of type 'undefined'",
+              }),
+            ),
+          );
+          return;
+        }
 
-                // Call all handlers
-                this.handlers.forEach(async handler => {
-                    if(!handler.handledTypes.includes(json.type as WebSocketMessageType)) return;
-                    await handler.handleMessage(json.type as WebSocketMessageType, {socket: ws, socketData: socketData, message: data});
-                });
-            });
-            ws.send(JSON.stringify(StatusMessage.parse({ status: "connected" })));
+        // Call all handlers
+        this.handlers.forEach(async (handler) => {
+          if (!handler.handledTypes.includes(json.type as WebSocketMessageType))
+            return;
+          await handler.handleMessage(json.type as WebSocketMessageType, {
+            socket: ws,
+            socketData: socketData,
+            message: data,
+          });
         });
-    }
+      });
+      ws.send(JSON.stringify(StatusMessage.parse({ status: "connected" })));
+    });
+  }
 
-   public registerHandler(handler: WsMessageHandler) {
+  public registerHandler(handler: WsMessageHandler) {
     this.handlers.push(handler);
-   }
+  }
 }
 
 // === OLD ACTIONS ===

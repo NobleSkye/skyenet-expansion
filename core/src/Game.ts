@@ -16,4 +16,8 @@ export class Game {
     this.gameMode = gameMode;
     this.config = new DefaultConfig();
   }
+
+  public addPlayer(player: Player) {
+    this.players.push(player);
+  }
 }

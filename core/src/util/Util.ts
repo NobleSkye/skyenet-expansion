@@ -9,7 +9,7 @@ export function genStringID(length: number) {
 }
 
 export function assert(condition: boolean) {
-  if(!condition) {
+  if (!condition) {
     throw new Error(`Assertion failed! Time: ${Date.now()}`);
   }
 }

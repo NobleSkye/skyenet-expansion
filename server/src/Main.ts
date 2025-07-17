@@ -6,9 +6,9 @@ import { WebSocketServerManager } from "./net/WebSocketServer";
 export class ServerManager {
   public game: ServerGame;
   public wsMgr: WebSocketServerManager;
-  
+
   constructor() {
-    this.game = new ServerGame(genStringID(8), GameMode.FFA)
+    this.game = new ServerGame(genStringID(8), GameMode.FFA);
     this.wsMgr = new WebSocketServerManager();
   }
 }

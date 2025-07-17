@@ -1,6 +1,5 @@
 import z from "zod";
 import {
-  AuthenticationMessageCallback,
   MoveMessage,
   StatusMessage,
 } from "./Schemas";
@@ -19,9 +18,6 @@ export enum WebSocketMessageType {
 declare namespace MessageType {
   export type MoveMessage = z.infer<typeof MoveMessage>;
   export type StatusMessage = z.infer<typeof StatusMessage>;
-  export type AuthenticationMessageCallback = z.infer<
-    typeof AuthenticationMessageCallback
-  >;
 }
 
 export enum ShipSprite {
