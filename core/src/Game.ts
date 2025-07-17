@@ -2,7 +2,7 @@ import { Config } from "./config/Config";
 import { DefaultConfig } from "./config/DefaultConfig";
 import { Entity } from "./entity/Entity";
 import { Player } from "./entity/Player";
-import { GameID, GameMode } from "./types";
+import { GameID, GameMode } from "./types.d";
 
 export class Game {
   public players: Player[] = [];

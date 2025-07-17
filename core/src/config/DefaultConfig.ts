@@ -1,4 +1,4 @@
-import { ShipEngineSprite, ShipSprite } from "../types";
+import { ShipEngineSprite, ShipSprite } from "../types.d";
 import { Config } from "./Config";
 
 export class DefaultConfig implements Config {

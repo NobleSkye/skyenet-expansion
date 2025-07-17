@@ -1,4 +1,4 @@
-import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types";
+import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types.d";
 import type { ClientGame } from "../ClientGame";
 import { ClientPlayer } from "./ClientPlayer";
 

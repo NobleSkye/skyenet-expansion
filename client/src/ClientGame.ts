@@ -1,5 +1,5 @@
 import { Game } from "../../core/src/Game";
-import type { GameID, GameMode, PlayerID } from "../../core/src/types";
+import type { GameID, GameMode, PlayerID } from "../../core/src/types.d";
 import type { ClientPlayer } from "./entity/ClientPlayer";
 import { MyPlayer } from "./entity/MyPlayer";
 import { Camera } from "./lib/Camera";

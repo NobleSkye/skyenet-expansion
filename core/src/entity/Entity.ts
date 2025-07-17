@@ -1,4 +1,4 @@
-import { EntityID } from "../types";
+import { EntityID } from "../types.d";
 import { genStringID } from "../util/Util";
 
 export class Entity {

@@ -1,4 +1,4 @@
-import { ShipEngineSprite, ShipSprite } from "../types";
+import { ShipEngineSprite, ShipSprite } from "../types.d";
 
 export interface Config {
   defaultShipSprite: ShipSprite;

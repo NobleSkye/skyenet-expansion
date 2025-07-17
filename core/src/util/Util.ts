@@ -7,3 +7,9 @@ export function genStringID(length: number) {
   }
   return id;
 }
+
+export function assert(condition: boolean) {
+  if(!condition) {
+    throw new Error(`Assertion failed! Time: ${Date.now()}`);
+  }
+}
