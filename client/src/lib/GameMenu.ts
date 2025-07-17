@@ -200,7 +200,7 @@ export class GameMenu {
     this.ctx.fillStyle = "#ffffff";
     this.ctx.font = "48px Arial";
     this.ctx.textAlign = "center";
-    this.ctx.fillText("SKYENET EXPANSION", baseWidth / 2, 100);
+    this.ctx.fillText("SPACENET", baseWidth / 2, 100);
 
     // Draw menu items on the left
     this.ctx.font = "24px Arial";
