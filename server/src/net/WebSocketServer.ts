@@ -1,7 +1,9 @@
 import { RawData, WebSocket, WebSocketServer } from "ws";
 import { ServerError, StatusMessage } from "../../../core/src/Schemas";
-import { WebSocketMessageType } from "../../../core/src/types";
+import { WebSocketMessageType } from "../../../core/src/types.d";
 import { WsMessageHandler } from "./handler/Handler";
+import { WsJoinMessageHandler } from "./handler/JoinHandler";
+import { WsStatusMessageHandler } from "./handler/StatusHandler";
 
 export interface SocketMessageData {
   socket: WebSocket;
@@ -16,7 +18,7 @@ export class WebSocketServerManager {
   private handlers: WsMessageHandler[];
 
   constructor() {
-    this.handlers = [];
+    this.handlers = [new WsJoinMessageHandler(), new WsStatusMessageHandler()];
     this.wss = new WebSocketServer({ port: 8081 });
 
     this.wss.on("connection", async (ws) => {

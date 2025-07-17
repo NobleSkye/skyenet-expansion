@@ -37,7 +37,7 @@ export const AuthenticationMessageCallback = z.object({
   gameID: z.string(),
 });
 */
-export const PlayerJoinMessage = BaseWebSocketMessageSchema.extend({
+export const PlayerJoinMessage = z.object({
   type: lt(WebSocketMessageType.PlayerJoin),
   shipSprite: z.enum(ShipSprite),
   shipEngineSprite: z.enum(ShipEngineSprite),

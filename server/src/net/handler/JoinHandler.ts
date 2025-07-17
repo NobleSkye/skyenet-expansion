@@ -1,5 +1,5 @@
 import { PlayerJoinMessageCallback } from "../../../../core/src/Schemas";
-import { WebSocketMessageType } from "../../../../core/src/types";
+import { WebSocketMessageType } from "../../../../core/src/types.d";
 import { assert } from "../../../../core/src/util/Util";
 import { serverMgr } from "../../Main";
 import { SocketMessageData } from "../WebSocketServer";
@@ -16,7 +16,7 @@ export class WsJoinMessageHandler implements WsMessageHandler {
     type: WebSocketMessageType,
     data: SocketMessageData,
   ) {
-    assert(type === WebSocketMessageType.Authentication);
+    assert(type === WebSocketMessageType.PlayerJoin);
     const player = serverMgr.game.generatePlayer();
     serverMgr.game.addPlayer(player);
     data.socket.send(

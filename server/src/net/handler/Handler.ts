@@ -1,4 +1,4 @@
-import { WebSocketMessageType } from "../../../../core/src/types";
+import { WebSocketMessageType } from "../../../../core/src/types.d";
 import { SocketMessageData } from "../WebSocketServer";
 
 export interface WsMessageHandler {

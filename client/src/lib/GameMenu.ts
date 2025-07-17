@@ -1,4 +1,5 @@
 import { ShipEngineSprite, ShipSprite } from "../../../core/src/types.d";
+import { joinGame } from "../WebSocket";
 import { AtlasManager } from "./AtlasManager";
 
 export interface Ship {
@@ -121,6 +122,7 @@ export class GameMenu {
       clickYBase <= startButton.y + startButton.height
     ) {
       this.state.currentScreen = "game";
+      joinGame(this.getSelectedShip().sprite, this.getSelectedShip().engineSprite);
     }
   }
 
