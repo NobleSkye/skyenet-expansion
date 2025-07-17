@@ -46,8 +46,8 @@ export class MyPlayer extends ClientPlayer {
     this.y += this.velY;
     this.x += this.velX;
     this.rotation += this.velR;
-    this.velY *= 0.99; // Reduced friction to keep player moving longer
-    this.velX *= 0.99; // Reduced friction to keep player moving longer
+    this.velY *= 0.997; // Reduced friction to keep player moving longer
+    this.velX *= 0.997; // Reduced friction to keep player moving longer
     this.velR *= 0.99; // Keep rotation friction the same
     if (this.rotation >= 360) {
       this.rotation -= 360;
