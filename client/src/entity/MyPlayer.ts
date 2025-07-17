@@ -30,25 +30,27 @@ export class MyPlayer extends ClientPlayer {
       this.velX -= vertical;
     }
     if (game.keyManager.isKeyPressed("KeyS")) {
-      // // S key now applies stronger friction (opposite of engine thrust)
-      // this.velY *= 0.9; // Stronger friction than normal
-      // this.velX *= 0.9;
-      // this.velR *= 0.9;
+      // S key reduces velocity until it reaches 0
+      const decelerationRate = 0.09; // Adjust this value to control how fast it slows down
       
-      const horizontal = Math.cos((this.rotation * Math.PI) / 180) / 3;
-      const vertical = Math.sin((this.rotation * Math.PI) / 180) / 3;
-      for (let i = 0; i < 10; i++) {
-        this.flames[this.flames.length] = {
-          x: this.x + vertical*110,
-          y: this.y + horizontal * 110,
-          z: Math.random() / 4 + 0.3,
-          velX: this.velX + horizontal + (Math.random() - 0.5) * 2,
-          velY: this.velY + vertical + (Math.random() - 0.5) * 2,
-          size: 10,
-        };
+      // Reduce velocity towards 0
+      if (Math.abs(this.velX) > decelerationRate) {
+        this.velX -= Math.sign(this.velX) * decelerationRate;
+      } else {
+        this.velX = 0;
       }
-      this.velY += horizontal/2;
-      this.velX += vertical/2;
+      
+      if (Math.abs(this.velY) > decelerationRate) {
+        this.velY -= Math.sign(this.velY) * decelerationRate;
+      } else {
+        this.velY = 0;
+      }
+      
+      if (Math.abs(this.velR) > decelerationRate) {
+        this.velR -= Math.sign(this.velR) * decelerationRate;
+      } else {
+        this.velR = 0;
+      }
     }
     if (game.keyManager.isKeyPressed("KeyA")) {
       this.velR += 0.1;
