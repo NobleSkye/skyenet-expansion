@@ -42,8 +42,8 @@ export class GameRenderer {
       this.ctx.fillRect(
         this.stars[i].x + game.camera.x / this.stars[i].z!,
         this.stars[i].y + game.camera.y / this.stars[i].z!,
-        10 - this.stars[i].z!,
-        10 - this.stars[i].z!,
+        7 - this.stars[i].z!/2,
+        7 - this.stars[i].z!/2,
       );
     }
 
