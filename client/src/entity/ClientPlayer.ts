@@ -8,5 +8,6 @@ export class ClientPlayer extends Player {
     velX?: number;
     velY?: number;
     size?: number;
+    rotation?:number;
   }[] = [];
 }

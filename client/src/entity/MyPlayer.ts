@@ -8,6 +8,18 @@ export class MyPlayer extends ClientPlayer {
     this.velocityChange(game);
     this.move();
   }
+  private makeFlame(horizontal:number,vertical:number){
+        this.flames[this.flames.length] = {
+          x: this.x + vertical*110,
+          y: this.y + horizontal * 110,
+          z: Math.random() / 4 + 0.3,
+          velX: this.velX + horizontal + (Math.random() - 0.5) * 2,
+          velY: this.velY + vertical + (Math.random() - 0.5) * 2,
+          size: 10,
+          rotation:this.rotation,
+        };
+
+  }
   private velocityChange(game: ClientGame) {
     // Reset engine state each frame
     this.engineActive = false;
@@ -17,14 +29,7 @@ export class MyPlayer extends ClientPlayer {
       const horizontal = Math.cos((this.rotation * Math.PI) / 180) / 3;
       const vertical = Math.sin((this.rotation * Math.PI) / 180) / 3;
       for (let i = 0; i < 10; i++) {
-        this.flames[this.flames.length] = {
-          x: this.x + vertical*110,
-          y: this.y + horizontal * 110,
-          z: Math.random() / 4 + 0.3,
-          velX: this.velX + horizontal + (Math.random() - 0.5) * 2,
-          velY: this.velY + vertical + (Math.random() - 0.5) * 2,
-          size: 10,
-        };
+        this.makeFlame(horizontal,vertical)
       }
       this.velY -= horizontal;
       this.velX -= vertical;
@@ -55,14 +60,7 @@ export class MyPlayer extends ClientPlayer {
       const horizontal = Math.cos((this.rotation * Math.PI) / 180) / 3;
       const vertical = Math.sin((this.rotation * Math.PI) / 180) / 3;
       for (let i = 0; i < 10; i++) {
-        this.flames[this.flames.length] = {
-          x: this.x + vertical*110,
-          y: this.y + horizontal * 110,
-          z: Math.random() / 4 + 0.3,
-          velX: this.velX - horizontal + (Math.random() - 0.5) * 2,
-          velY: this.velY - vertical + (Math.random() - 0.5) * 2,
-          size: 10,
-        };
+        this.makeFlame(horizontal,vertical)
       }
       this.velY += horizontal/2;
       this.velX += vertical/2;

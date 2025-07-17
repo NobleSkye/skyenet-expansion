@@ -115,6 +115,7 @@ export class GameRenderer {
           game.players[i].flames[a].x,
           game.players[i].flames[a].y,
         );
+        this.ctx.rotate(-((game.players[i].flames[a].rotation! * Math.PI) / 180));
         this.ctx.fillStyle = `rgb(${70 * game.players[i].flames[a].size! + 10},${(50 * game.players[i].flames[a].size!) / 2 + 30},10)`;
         this.ctx.fillRect(
           -game.players[i].flames[a].size! / 2,
@@ -122,6 +123,7 @@ export class GameRenderer {
           game.players[i].flames[a].size!,
           game.players[i].flames[a].size!,
         );
+        this.ctx.rotate(((game.players[i].flames[a].rotation! * Math.PI) / 180));
         this.ctx.translate(
           -game.players[i].flames[a].x,
           -game.players[i].flames[a].y,
