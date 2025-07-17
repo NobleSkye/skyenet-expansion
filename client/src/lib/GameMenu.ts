@@ -163,7 +163,8 @@ export class GameMenu {
 
   public render() {
     // Handle canvas resizing like the original game
-    this.resize();
+    // this.resize();
+    this.ctx.imageSmoothingEnabled = false;
 
     // Clear canvas with transparent background
     this.ctx.fillStyle = "rgba(10, 10, 10, 0.7)"; // Semi-transparent dark overlay
@@ -199,7 +200,7 @@ export class GameMenu {
     this.ctx.fillStyle = "#ffffff";
     this.ctx.font = "48px Arial";
     this.ctx.textAlign = "center";
-    this.ctx.fillText("SKYENET EXPANSION", baseWidth / 2, 100);
+    this.ctx.fillText("SPACENET", baseWidth / 2, 100);
 
     // Draw menu items on the left
     this.ctx.font = "24px Arial";

@@ -115,7 +115,7 @@ export class GameRenderer {
           game.players[i].flames[a].x,
           game.players[i].flames[a].y,
         );
-        this.ctx.fillStyle = `rgb(${70 * game.players[i].flames[a].size! + 10},${(50 * game.players[i].flames[a].size!) / 2 + 10},10)`;
+        this.ctx.fillStyle = `rgb(${70 * game.players[i].flames[a].size! + 10},${(50 * game.players[i].flames[a].size!) / 2 + 30},10)`;
         this.ctx.fillRect(
           -game.players[i].flames[a].size! / 2,
           -game.players[i].flames[a].size! / 2,
@@ -163,7 +163,7 @@ export class GameRenderer {
         }
 
         // Reset scale after drawing
-        this.ctx.scale(0.5, 0.5);
+        this.ctx.scale(1/3, 1/3);
 
         this.ctx.rotate((game.players[i].rotation * Math.PI) / 180);
         this.ctx.translate(-game.players[i].x, -game.players[i].y);
@@ -176,6 +176,10 @@ export class GameRenderer {
       // this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
       this.ctx.translate(-game.camera.x, -game.camera.y);
     }
+    // this.ctx.scale(
+    //   .7,.7
+    // );
+      // this.ctx.translate(1280/2, 720/2);
   }
 
   private resize() {
