@@ -3,6 +3,7 @@ import type { ClientGame } from "../ClientGame";
 import { ClientPlayer } from "./ClientPlayer";
 
 export class MyPlayer extends ClientPlayer {
+  cameraDist:number = 0
   public tick(game: ClientGame) {
     this.velocityChange(game);
     this.move();
@@ -36,9 +37,18 @@ export class MyPlayer extends ClientPlayer {
     }
     if (game.keyManager.isKeyPressed("KeyA")) {
       this.velR += 0.1;
+    if(this.cameraDist>-10){
+      this.cameraDist=((this.cameraDist*99)-10)/100
+    }
     }
     if (game.keyManager.isKeyPressed("KeyD")) {
       this.velR -= 0.1;
+    if(this.cameraDist>-10){
+      this.cameraDist=((this.cameraDist*99)-10)/100
+    }
+    }
+    if(this.cameraDist<1){
+      this.cameraDist=((this.cameraDist*49)+1)/50
     }
   }
 
