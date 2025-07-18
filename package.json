@@ -12,10 +12,12 @@
     "dev:server": "tsx server/src/Main.ts",
     "format:fix": "pnpm exec prettier . --write",
     "format:check": "npx prettier . --check",
-    "lint": "pnpm dlx eslint ."
+    "lint": "pnpm dlx eslint .",
+    "dev": "concurrently --kill-others \"pnpm run dev:client\" \"pnpm run dev:server\""
   },
   "dependencies": {
     "@types/ws": "^8.18.1",
+    "concurrently": "^9.2.0",
     "tsx": "^4.20.3",
     "ws": "^8.18.3",
     "zod": "^4.0.5"
