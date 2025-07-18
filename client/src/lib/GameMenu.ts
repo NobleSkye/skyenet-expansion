@@ -1,5 +1,5 @@
-import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types";
-import { AtlasManager } from "./AtlasManager";
+import { ShipEngineSprite, ShipSprite } from "../../../core/src/types.d";
+import type { AtlasManager } from "./AtlasManager";
 
 export interface Ship {
   id: string;
@@ -39,8 +39,8 @@ export class GameMenu {
         id: "gray-ship",
         name: "Gray Fighter",
         description: "A reliable starter ship with balanced stats",
-        sprite: "gray-ship",
-        engineSprite: "gray-ship-engine",
+        sprite: ShipSprite.Gray,
+        engineSprite: ShipEngineSprite.Gray,
       },
       ships: [],
       isGameRunning: false,
@@ -162,6 +162,7 @@ export class GameMenu {
   }
 
   public render() {
+    this.resize();
     // Handle canvas resizing like the original game
     // this.resize();
     this.ctx.imageSmoothingEnabled = false;
@@ -230,6 +231,7 @@ export class GameMenu {
 
     // Draw ship that follows mouse (right side)
     if (this.atlasManager.areAllLoaded()) {
+      // console.log("Atlas is loaded, drawing normal thing");
       this.ctx.save();
 
       // Calculate ship position to follow mouse but stay on right side

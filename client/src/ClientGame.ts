@@ -1,5 +1,10 @@
 import { Game } from "../../core/src/Game";
-import type { GameID, GameMode, PlayerID } from "../../core/src/types";
+import type {
+  EntityID,
+  GameID,
+  GameMode,
+  PlayerID,
+} from "../../core/src/types.d";
 import type { ClientPlayer } from "./entity/ClientPlayer";
 import { MyPlayer } from "./entity/MyPlayer";
 import { Camera } from "./lib/Camera";
@@ -19,17 +24,23 @@ export class ClientGame extends Game {
     size?: number;
   }[] = [];
 
-  constructor(gameID: GameID, gameMode: GameMode, myPlayerID: PlayerID) {
+  constructor(
+    gameID: GameID,
+    gameMode: GameMode,
+    myPlayerID: PlayerID,
+    myEntityID: EntityID,
+  ) {
     super(gameID, gameMode);
     this.myPlayer = new MyPlayer(
       myPlayerID,
+      myEntityID,
       this.config.defaultSpawnCoords.x,
       this.config.defaultSpawnCoords.y,
       0,
       this.config.defaultShipSprite,
       this.config.defaultShipEngineSprite,
     );
-    this.players[0]=this.myPlayer
+    this.players[0] = this.myPlayer;
     for (let i = 0; i < 50; i++) {
       this.stars.push({
         x: -30 + Math.random() * 1330,

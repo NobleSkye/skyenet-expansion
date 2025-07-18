@@ -1,79 +1,16 @@
-import { WebSocketServer } from "ws";
-import {
-  AuthenticationMessageCallback,
-  MoveMessage,
-  ServerError,
-  StatusMessage,
-} from "../../core/src/Schemas";
-import { GameMode, WebSocketMessageType } from "../../core/src/types.d";
+import { GameMode } from "../../core/src/types.d";
 import { ServerGame } from "./ServerGame";
 import { genStringID } from "../../core/src/util/Util";
+import { WebSocketServerManager } from "./net/WebSocketServer";
 
-const wss = new WebSocketServer({ port: 8081 });
+export class ServerManager {
+  public game: ServerGame;
+  public wsMgr: WebSocketServerManager;
 
-const game = new ServerGame(genStringID(8), GameMode.FFA);
+  constructor() {
+    this.game = new ServerGame(genStringID(8), GameMode.FFA);
+    this.wsMgr = new WebSocketServerManager();
+  }
+}
 
-wss.on("connection", async (ws) => {
-  ws.on("error", console.error);
-
-  ws.on("message", async (data) => {
-    console.log(`Received websocket message: ${data}`);
-    let json;
-    try {
-      json = JSON.parse(data.toString());
-    } catch (e) {
-      console.error(e);
-      ws.send(
-        JSON.stringify(ServerError.parse({ message: "Failed to parse JSON" })),
-      );
-      return;
-    }
-    if (typeof json.type === "undefined") {
-      ws.send(
-        JSON.stringify(
-          ServerError.parse({ message: "json.type is of type 'undefined'" }),
-        ),
-      );
-      return;
-    }
-    if (
-      typeof json.playerID === "undefined" &&
-      json.type !== WebSocketMessageType.Authentication
-    ) {
-      ws.send(
-        JSON.stringify(
-          ServerError.parse({
-            message: "json.playerID is of type 'undefined'",
-          }),
-        ),
-      );
-    } else if (json.type === WebSocketMessageType.Authentication) {
-      ws.send(
-        JSON.stringify(
-          AuthenticationMessageCallback.parse({
-            playerID: ServerGame.generateRandomPlayerID(),
-            gameID: game.gameID,
-          }),
-        ),
-      );
-      return;
-    }
-
-    let result;
-    switch (json.type) {
-      case WebSocketMessageType.Movement:
-        result = MoveMessage.safeParse(json);
-        if (!result.success) break;
-        game.handleMovementMessage(json);
-        break;
-      case WebSocketMessageType.Status:
-        result = StatusMessage.safeParse(json);
-        if (!result.success) break;
-        game.handleStatusMessage(json);
-        break;
-      default:
-        break;
-    }
-  });
-  ws.send(JSON.stringify(StatusMessage.parse({ status: "connected" })));
-});
+export const serverMgr = new ServerManager();

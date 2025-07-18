@@ -1,8 +1,9 @@
 import z from "zod";
 import {
-  AuthenticationMessageCallback,
-  MoveMessage,
+  MovementMessage,
+  PlayerJoinMessageCallback,
   StatusMessage,
+  UpdatePlayersMessage,
 } from "./Schemas";
 
 export enum WebSocketMessageType {
@@ -11,27 +12,32 @@ export enum WebSocketMessageType {
   Movement,
   Authentication,
   AuthenticationCallback,
+  PlayerJoin,
+  PlayerJoinCallback,
+  UpdatePlayers,
 }
 
 declare namespace MessageType {
-  export type MoveMessage = z.infer<typeof MoveMessage>;
+  export type MovementMessage = z.infer<typeof MovementMessage>;
   export type StatusMessage = z.infer<typeof StatusMessage>;
-  export type AuthenticationMessageCallback = z.infer<
-    typeof AuthenticationMessageCallback
+  export type PlayerJoinCallbackMessage = z.infer<
+    typeof PlayerJoinMessageCallback
   >;
+  export type UpdatePlayersMessage = z.infer<typeof UpdatePlayersMessage>;
 }
 
-export type ShipSprite =
-  | "gray-ship"
-  | "blue-ship"
-  | "white-ship"
-  | "black-ship";
-export type ShipEngineSprite =
-  | "gray-ship-engine"
-  | "blue-ship-engine"
-  | "white-ship-engine"
-  | "black-ship-engine";
-
+export enum ShipSprite {
+  Gray = "gray-ship",
+  Blue = "blue-ship",
+  White = "white-ship",
+  Black = "black-ship",
+}
+export enum ShipEngineSprite {
+  Gray = "gray-ship-engine",
+  Blue = "blue-ship-engine",
+  White = "white-ship-engine",
+  Black = "black-ship-engine",
+}
 export type PlayerID = string;
 export type GameID = string;
 export type EntityID = string;
