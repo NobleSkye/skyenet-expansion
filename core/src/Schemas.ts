@@ -52,6 +52,19 @@ export const MovementMessage = BaseWebSocketMessageSchema.extend({
   y: z.number(),
   engineActive: z.boolean(),
   rotation: z.number(),
+  flames: z.optional(
+    z.array(
+      z.object({
+        x: z.number(),
+        y: z.number(),
+        z: z.optional(z.number()),
+        velX: z.optional(z.number()),
+        velY: z.optional(z.number()),
+        size: z.optional(z.number()),
+        rotation: z.optional(z.number()),
+      }),
+    ),
+  ),
 });
 
 /*
@@ -81,6 +94,6 @@ export const PlayerJoinMessageCallback = z.object({
 
 export const UpdatePlayersMessage = z.object({
   type: lt(WebSocketMessageType.UpdatePlayers),
-  playersAdded: z.array(z.object(PlayerSchema)),
+  playersAdded: z.array(PlayerSchema),
   playersRemoved: z.array(z.string()),
 });
