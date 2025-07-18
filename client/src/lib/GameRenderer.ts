@@ -137,14 +137,14 @@ export class GameRenderer {
         );
       }
 
-      // Check if atlas is loaded before drawing
-      if (this.atlasManager.areAllLoaded()) {
         // // Choose texture based on engine state and selected ship
         // const shipTexture = game.myPlayer.engineActive
         //   ? game.myPlayer.shipEngineSprite
         //   : game.myPlayer.shipSprite;
+      // this.ctx.translate(game.camera.x, game.camera.y);
         this.ctx.translate(game.players[i].x, game.players[i].y);
         this.ctx.rotate(-((game.players[i].rotation * Math.PI) / 180));
+
 
         // Apply 3  x scale for player ship
         this.ctx.scale(3, 3);
@@ -173,18 +173,17 @@ export class GameRenderer {
 
         // Reset scale after drawing
         this.ctx.scale(1 / 3, 1 / 3);
-
         this.ctx.rotate((game.players[i].rotation * Math.PI) / 180);
         this.ctx.translate(-game.players[i].x, -game.players[i].y);
-      }
+      
 
       // Reset scale after drawing
       // this.ctx.scale(0.5, 0.5);
 
       // this.ctx.rotate((game.myPlayer.rotation * Math.PI) / 180);
       // this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
-      this.ctx.translate(-game.camera.x, -game.camera.y);
     }
+      this.ctx.translate(-game.camera.x, -game.camera.y);
     // this.ctx.scale(
     //   .7,.7
     // );
