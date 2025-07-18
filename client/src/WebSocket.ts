@@ -17,6 +17,8 @@ import {
 import { ClientPlayer } from "./entity/ClientPlayer";
 import { game } from "./Main";
 
+export const playersFromJoin: ClientPlayer[] = [];
+
 let resolveGameID: (value: string | PromiseLike<string>) => void;
 const gameID: Promise<GameID> = new Promise((resolve) => {
   resolveGameID = resolve;
@@ -100,6 +102,22 @@ function handleJoinCallbackMessage(msg: MessageType.PlayerJoinCallbackMessage) {
   resolveGameID(msg.gameID);
   resolveEntityID(msg.entityID);
   resolvePlayerID(msg.playerID);
+  msg.players.forEach((player) => {
+    const clientPlayer = new ClientPlayer(
+      player.playerID,
+      player.entityID,
+      player.x,
+      player.y,
+      player.rotation,
+      player.shipSprite,
+      player.shipEngineSprite,
+    );
+    clientPlayer.engineActive = player.engineActive;
+    clientPlayer.velX = player.velX;
+    clientPlayer.velY = player.velY;
+    clientPlayer.velR = player.velR;
+    playersFromJoin.push(clientPlayer);
+  });
 }
 
 export async function getGameID(): Promise<GameID> {

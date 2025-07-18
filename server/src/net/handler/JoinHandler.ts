@@ -29,6 +29,7 @@ export class WsJoinMessageHandler implements WsMessageHandler {
           playerID: player.playerID,
           entityID: player.entityID,
           gameID: serverMgr.game.gameID,
+          players: serverMgr.game.players,
         }),
       ),
     );

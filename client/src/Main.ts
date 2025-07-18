@@ -8,6 +8,7 @@ import {
   getPlayerID,
   initWebSocket,
   joinGame,
+  playersFromJoin,
 } from "./WebSocket.js";
 import {
   GameMode,
@@ -116,6 +117,10 @@ function tick() {
           loginInfo.playerID,
           loginInfo.entityID,
         );
+        playersFromJoin.forEach((player) => {
+          if (player.playerID === loginInfo.playerID) return;
+          game.players.push(player);
+        });
         gameState = "playing";
         menu.setGameRunning(true);
         // Update player's selected ship

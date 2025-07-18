@@ -109,10 +109,9 @@ export class GameRenderer {
     //         -16,
     //       );
     // console.log(game.players)
-  this.ctx.font = "48px serif";
+    this.ctx.font = "48px serif";
     this.ctx.textAlign = "center";
-  this.ctx.fillText(`${game.players.length} person is connected`, 0, -100);
-
+    this.ctx.fillText(`${game.players.length} person is connected`, 0, -100);
 
     for (let i = 0; i < game.players.length; i++) {
       for (let a = 0; a < game.players[i].flames.length; a++) {
@@ -137,45 +136,43 @@ export class GameRenderer {
         );
       }
 
-        // // Choose texture based on engine state and selected ship
-        // const shipTexture = game.myPlayer.engineActive
-        //   ? game.myPlayer.shipEngineSprite
-        //   : game.myPlayer.shipSprite;
+      // // Choose texture based on engine state and selected ship
+      // const shipTexture = game.myPlayer.engineActive
+      //   ? game.myPlayer.shipEngineSprite
+      //   : game.myPlayer.shipSprite;
       // this.ctx.translate(game.camera.x, game.camera.y);
-        this.ctx.translate(game.players[i].x, game.players[i].y);
-        this.ctx.rotate(-((game.players[i].rotation * Math.PI) / 180));
+      this.ctx.translate(game.players[i].x, game.players[i].y);
+      this.ctx.rotate(-((game.players[i].rotation * Math.PI) / 180));
 
+      // Apply 3  x scale for player ship
+      this.ctx.scale(3, 3);
 
-        // Apply 3  x scale for player ship
-        this.ctx.scale(3, 3);
+      // Check if atlas is loaded before drawing
+      if (this.atlasManager.areAllLoaded()) {
+        // Choose texture based on engine state and selected ship
+        // const shipTexture = game.players[i].engineActive
+        //   ? game.players[i].shipEngineSprite
+        //   : game.players[i].shipSprite;
+        const shipTexture = game.players[i].shipSprite;
 
-        // Check if atlas is loaded before drawing
-        if (this.atlasManager.areAllLoaded()) {
-          // Choose texture based on engine state and selected ship
-          // const shipTexture = game.players[i].engineActive
-          //   ? game.players[i].shipEngineSprite
-          //   : game.players[i].shipSprite;
-          const shipTexture = game.players[i].shipSprite;
+        this.atlasManager.drawTexture(
+          "entities",
+          shipTexture,
+          this.ctx,
+          -16, // Center the 32x32 sprite
+          -16,
+        );
+      } else {
+        // Fallback: draw a simple rectangle while atlas loads
+        console.log("Atlas not loaded, showing green rectangle");
+        this.ctx.fillStyle = "#00ff00";
+        this.ctx.fillRect(-16, -16, 32, 32);
+      }
 
-          this.atlasManager.drawTexture(
-            "entities",
-            shipTexture,
-            this.ctx,
-            -16, // Center the 32x32 sprite
-            -16,
-          );
-        } else {
-          // Fallback: draw a simple rectangle while atlas loads
-          console.log("Atlas not loaded, showing green rectangle");
-          this.ctx.fillStyle = "#00ff00";
-          this.ctx.fillRect(-16, -16, 32, 32);
-        }
-
-        // Reset scale after drawing
-        this.ctx.scale(1 / 3, 1 / 3);
-        this.ctx.rotate((game.players[i].rotation * Math.PI) / 180);
-        this.ctx.translate(-game.players[i].x, -game.players[i].y);
-      
+      // Reset scale after drawing
+      this.ctx.scale(1 / 3, 1 / 3);
+      this.ctx.rotate((game.players[i].rotation * Math.PI) / 180);
+      this.ctx.translate(-game.players[i].x, -game.players[i].y);
 
       // Reset scale after drawing
       // this.ctx.scale(0.5, 0.5);
@@ -183,7 +180,7 @@ export class GameRenderer {
       // this.ctx.rotate((game.myPlayer.rotation * Math.PI) / 180);
       // this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
     }
-      this.ctx.translate(-game.camera.x, -game.camera.y);
+    this.ctx.translate(-game.camera.x, -game.camera.y);
     // this.ctx.scale(
     //   .7,.7
     // );
