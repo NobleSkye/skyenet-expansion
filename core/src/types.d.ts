@@ -1,8 +1,9 @@
 import z from "zod";
 import {
-  MoveMessage,
+  MovementMessage,
   PlayerJoinMessageCallback,
   StatusMessage,
+  UpdatePlayersMessage,
 } from "./Schemas";
 
 export enum WebSocketMessageType {
@@ -17,11 +18,12 @@ export enum WebSocketMessageType {
 }
 
 declare namespace MessageType {
-  export type MoveMessage = z.infer<typeof MoveMessage>;
+  export type MovementMessage = z.infer<typeof MovementMessage>;
   export type StatusMessage = z.infer<typeof StatusMessage>;
   export type PlayerJoinCallbackMessage = z.infer<
     typeof PlayerJoinMessageCallback
   >;
+  export type UpdatePlayersMessage = z.infer<typeof UpdatePlayersMessage>;
 }
 
 export enum ShipSprite {

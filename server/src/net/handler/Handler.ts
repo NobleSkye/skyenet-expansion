@@ -6,5 +6,5 @@ export interface WsMessageHandler {
   handleMessage: (
     type: WebSocketMessageType,
     data: SocketMessageData,
-  ) => Promise<void>;
+  ) => Promise<string | void>;
 }

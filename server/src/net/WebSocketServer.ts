@@ -4,6 +4,7 @@ import { WebSocketMessageType } from "../../../core/src/types.d";
 import { WsMessageHandler } from "./handler/Handler";
 import { WsJoinMessageHandler } from "./handler/JoinHandler";
 import { WsStatusMessageHandler } from "./handler/StatusHandler";
+import { WsMovementMessageHandler } from "./handler/MovementHandler";
 
 export interface SocketMessageData {
   socket: WebSocket;
@@ -18,7 +19,11 @@ export class WebSocketServerManager {
   private handlers: WsMessageHandler[];
 
   constructor() {
-    this.handlers = [new WsJoinMessageHandler(), new WsStatusMessageHandler()];
+    this.handlers = [
+      new WsJoinMessageHandler(),
+      new WsStatusMessageHandler(),
+      new WsMovementMessageHandler(),
+    ];
     this.wss = new WebSocketServer({ port: 8081 });
 
     this.wss.on("connection", async (ws) => {
@@ -26,7 +31,7 @@ export class WebSocketServerManager {
       ws.on("error", console.error);
 
       ws.on("message", async (data) => {
-        console.log(`Received websocket message: ${data}`);
+        // console.log(`Received websocket message: ${data}`);
         let json;
         try {
           json = JSON.parse(data.toString());
@@ -54,11 +59,17 @@ export class WebSocketServerManager {
         this.handlers.forEach(async (handler) => {
           if (!handler.handledTypes.includes(json.type as WebSocketMessageType))
             return;
-          await handler.handleMessage(json.type as WebSocketMessageType, {
-            socket: ws,
-            socketData: socketData,
-            message: data,
-          });
+          const registeredPlayerID = await handler.handleMessage(
+            json.type as WebSocketMessageType,
+            {
+              socket: ws,
+              socketData: socketData,
+              message: data,
+            },
+          );
+          if (typeof registeredPlayerID === "string") {
+            socketData.playerID = registeredPlayerID;
+          }
         });
       });
       ws.send(JSON.stringify(StatusMessage.parse({ status: "connected" })));

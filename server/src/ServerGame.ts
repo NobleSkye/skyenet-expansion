@@ -4,7 +4,7 @@ import { MessageType } from "../../core/src/types.d";
 import { genStringID } from "../../core/src/util/Util";
 
 export class ServerGame extends Game {
-  public handleMovementMessage(message: MessageType.MoveMessage) {
+  public handleMovementMessage(message: MessageType.MovementMessage) {
     console.log(message);
   }
   public handleStatusMessage(message: MessageType.StatusMessage) {

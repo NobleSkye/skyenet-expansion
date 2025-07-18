@@ -19,9 +19,11 @@ export const ServerError = z.object({
   message: z.string(),
 });
 
-export const MoveMessage = BaseWebSocketMessageSchema.extend({
+export const MovementMessage = BaseWebSocketMessageSchema.extend({
   type: lt(WebSocketMessageType.Movement),
-  thrust: z.boolean(),
+  x: z.number(),
+  y: z.number(),
+  engineActive: z.boolean(),
   rotation: z.number(),
 });
 

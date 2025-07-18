@@ -1,5 +1,9 @@
-import type { ShipEngineSprite, ShipSprite } from "../../../core/src/types.d";
+import {
+  type ShipEngineSprite,
+  type ShipSprite,
+} from "../../../core/src/types.d";
 import type { ClientGame } from "../ClientGame";
+import { sendMovement } from "../WebSocket";
 import { ClientPlayer } from "./ClientPlayer";
 
 export class MyPlayer extends ClientPlayer {
@@ -105,6 +109,13 @@ export class MyPlayer extends ClientPlayer {
         i--;
       }
     }
+    sendMovement({
+      playerID: this.playerID,
+      x: this.x,
+      y: this.y,
+      rotation: this.rotation,
+      engineActive: this.engineActive,
+    });
   }
 
   public setShipType(shipSprite: ShipSprite, engineSprite: ShipEngineSprite) {

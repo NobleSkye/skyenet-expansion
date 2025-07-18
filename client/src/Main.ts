@@ -16,7 +16,7 @@ import {
   type PlayerID,
 } from "../../core/src/types.d.js";
 
-let game: ClientGame;
+export let game: ClientGame;
 let renderer: GameRenderer;
 let menu: GameMenu;
 export let atlasManager: AtlasManager;
@@ -109,6 +109,7 @@ function tick() {
           gameID: await getGameID(),
           entityID: await getEntityID(),
         };
+        console.log(loginInfo);
         game = new ClientGame(
           loginInfo.gameID,
           GameMode.FFA,

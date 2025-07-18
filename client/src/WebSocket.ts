@@ -1,7 +1,9 @@
 import {
+  MovementMessage,
   PlayerJoinMessage,
   PlayerJoinMessageCallback,
   StatusMessage,
+  UpdatePlayersMessage,
 } from "../../core/src/Schemas";
 import {
   ShipEngineSprite,
@@ -12,6 +14,8 @@ import {
   type MessageType,
   type PlayerID,
 } from "../../core/src/types.d";
+import { ClientPlayer } from "./entity/ClientPlayer";
+import { game } from "./Main";
 
 let resolveGameID: (value: string | PromiseLike<string>) => void;
 const gameID: Promise<GameID> = new Promise((resolve) => {
@@ -46,7 +50,7 @@ export function initWebSocket() {
       console.error(e);
       return;
     }
-    console.log(json);
+    // console.log(json);
     if (typeof json.type === "undefined") {
       console.error("json.type is of type 'undefined'");
       return;
@@ -62,6 +66,16 @@ export function initWebSocket() {
         result = PlayerJoinMessageCallback.safeParse(json);
         if (!result.success) break;
         handleJoinCallbackMessage(json);
+        break;
+      case WebSocketMessageType.UpdatePlayers:
+        result = UpdatePlayersMessage.safeParse(json);
+        if (!result.success) break;
+        handleUpdatePlayersMessage(result.data);
+        break;
+      case WebSocketMessageType.Movement:
+        result = MovementMessage.safeParse(json);
+        if (!result.success) break;
+        handleMovementMessage(result.data);
         break;
       default:
         break;
@@ -112,4 +126,44 @@ export function joinGame(
       }),
     ),
   );
+}
+
+function handleUpdatePlayersMessage(msg: MessageType.UpdatePlayersMessage) {
+  msg.playersRemoved.forEach((removedPlayerID) => {
+    game.players.splice(
+      game.players.findIndex((player) => player.playerID === removedPlayerID),
+      1,
+    );
+  });
+  msg.playersAdded.forEach((addedPlayer) => {
+    if (addedPlayer.playerID === game.myPlayer.playerID) return;
+    const _addedPlayer = new ClientPlayer(
+      addedPlayer.playerID,
+      addedPlayer.entityID,
+      addedPlayer.x,
+      addedPlayer.y,
+      addedPlayer.rotation,
+      addedPlayer.shipSprite,
+      addedPlayer.shipEngineSprite,
+    );
+    _addedPlayer.velX = addedPlayer.velX;
+    _addedPlayer.velY = addedPlayer.velY;
+    _addedPlayer.velR = addedPlayer.velR;
+    _addedPlayer.engineActive = addedPlayer.engineActive;
+    game.players.push(_addedPlayer);
+  });
+}
+
+function handleMovementMessage(msg: MessageType.MovementMessage) {
+  const playerIndex = game.players.findIndex(
+    (player) => player.playerID === msg.playerID,
+  );
+  game.players[playerIndex].x = msg.x;
+  game.players[playerIndex].y = msg.y;
+  game.players[playerIndex].engineActive = msg.engineActive;
+  game.players[playerIndex].rotation = msg.rotation;
+}
+
+export function sendMovement(msg: Omit<MessageType.MovementMessage, "type">) {
+  socket.send(JSON.stringify(MovementMessage.parse(msg)));
 }
