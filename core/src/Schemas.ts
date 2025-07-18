@@ -5,6 +5,20 @@ function lt(type: WebSocketMessageType) {
   return z.literal(type).default(type);
 }
 
+const PlayerSchema = z.object({
+      playerID: z.string(),
+      entityID: z.string(),
+      x: z.number().default(0),
+      y: z.number().default(0),
+      velX: z.number().default(0),
+      velY: z.number().default(0),
+      velR: z.number().default(0),
+      rotation: z.number().default(0),
+      engineActive: z.boolean().default(false),
+      shipSprite: z.enum(ShipSprite).default(ShipSprite.Gray),
+      shipEngineSprite: z.enum(ShipEngineSprite).default(ShipEngineSprite.Gray),
+    });
+
 export const BaseWebSocketMessageSchema = z.object({
   playerID: z.string(),
 });
@@ -49,39 +63,13 @@ export const PlayerJoinMessageCallback = z.object({
   playerID: z.string(),
   entityID: z.string(),
   gameID: z.string(),
-  players: z.array(
-    z.object({
-      playerID: z.string(),
-      entityID: z.string(),
-      x: z.number().default(0),
-      y: z.number().default(0),
-      velX: z.number().default(0),
-      velY: z.number().default(0),
-      velR: z.number().default(0),
-      rotation: z.number().default(0),
-      engineActive: z.boolean().default(false),
-      shipSprite: z.enum(ShipSprite).default(ShipSprite.Gray),
-      shipEngineSprite: z.enum(ShipEngineSprite).default(ShipEngineSprite.Gray),
-    }),
-  ),
+  players: z.array(PlayerSchema),
 });
 
 export const UpdatePlayersMessage = z.object({
   type: lt(WebSocketMessageType.UpdatePlayers),
   playersAdded: z.array(
-    z.object({
-      playerID: z.string(),
-      entityID: z.string(),
-      x: z.number().default(0),
-      y: z.number().default(0),
-      velX: z.number().default(0),
-      velY: z.number().default(0),
-      velR: z.number().default(0),
-      rotation: z.number().default(0),
-      engineActive: z.boolean().default(false),
-      shipSprite: z.enum(ShipSprite).default(ShipSprite.Gray),
-      shipEngineSprite: z.enum(ShipEngineSprite).default(ShipEngineSprite.Gray),
-    }),
+    z.object(PlayerSchema),
   ),
   playersRemoved: z.array(z.string()),
 });
