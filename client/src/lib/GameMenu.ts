@@ -1,6 +1,6 @@
 import { ShipEngineSprite, ShipSprite } from "../../../core/src/types.d";
 import { joinGame } from "../WebSocket";
-import { AtlasManager } from "./AtlasManager";
+import type { AtlasManager } from "./AtlasManager";
 
 export interface Ship {
   id: string;
@@ -122,7 +122,10 @@ export class GameMenu {
       clickYBase <= startButton.y + startButton.height
     ) {
       this.state.currentScreen = "game";
-      joinGame(this.getSelectedShip().sprite, this.getSelectedShip().engineSprite);
+      joinGame(
+        this.getSelectedShip().sprite,
+        this.getSelectedShip().engineSprite,
+      );
     }
   }
 
@@ -164,6 +167,7 @@ export class GameMenu {
   }
 
   public render() {
+    this.resize();
     // Handle canvas resizing like the original game
     // this.resize();
     this.ctx.imageSmoothingEnabled = false;
@@ -232,6 +236,7 @@ export class GameMenu {
 
     // Draw ship that follows mouse (right side)
     if (this.atlasManager.areAllLoaded()) {
+      // console.log("Atlas is loaded, drawing normal thing");
       this.ctx.save();
 
       // Calculate ship position to follow mouse but stay on right side
@@ -321,13 +326,7 @@ export class GameMenu {
         this.ctx.translate(100, itemY + 40);
         this.ctx.scale(2, 2);
 
-        this.atlasManager.drawTexture(
-          "entities",
-          ship.sprite,
-          this.ctx,
-          -16,
-          -16,
-        );
+        this.atlasManager.drawTexture("entities", ship.sprite, this.ctx, -16, -16);
 
         this.ctx.restore();
       }

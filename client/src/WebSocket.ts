@@ -79,10 +79,10 @@ function handleStatusMessage(
   }
 }
 
-function handleJoinCallbackMessage(
-  msg: MessageType.PlayerJoinCallbackMessage,
-) {
-  console.log(`My playerID: ${msg.playerID}\nGameID: ${msg.gameID}\nEntityID: ${msg.entityID}`);
+function handleJoinCallbackMessage(msg: MessageType.PlayerJoinCallbackMessage) {
+  console.log(
+    `My playerID: ${msg.playerID}\nGameID: ${msg.gameID}\nEntityID: ${msg.entityID}`,
+  );
   resolveGameID(msg.gameID);
   resolveEntityID(msg.entityID);
   resolvePlayerID(msg.playerID);
@@ -100,9 +100,16 @@ export async function getEntityID(): Promise<EntityID> {
   return await entityID;
 }
 
-export function joinGame(selectedShip: ShipSprite, selectedShipEngine: ShipEngineSprite) {
-  socket.send(JSON.stringify(PlayerJoinMessage.parse({
-    shipSprite: selectedShip,
-    shipEngineSprite: selectedShipEngine,
-  })));
+export function joinGame(
+  selectedShip: ShipSprite,
+  selectedShipEngine: ShipEngineSprite,
+) {
+  socket.send(
+    JSON.stringify(
+      PlayerJoinMessage.parse({
+        shipSprite: selectedShip,
+        shipEngineSprite: selectedShipEngine,
+      }),
+    ),
+  );
 }

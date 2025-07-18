@@ -1,4 +1,4 @@
-import { PlayerID, ShipEngineSprite, ShipSprite } from "../types.d";
+import { EntityID, PlayerID, ShipEngineSprite, ShipSprite } from "../types.d";
 import { Entity } from "./Entity";
 
 export class Player extends Entity {
@@ -13,13 +13,14 @@ export class Player extends Entity {
 
   constructor(
     playerID: PlayerID,
+    entityID: EntityID,
     x: number,
     y: number,
     rotation: number,
     shipSprite: ShipSprite,
     shipEngineSprite: ShipEngineSprite,
   ) {
-    super(x, y);
+    super(x, y, entityID);
     this.playerID = playerID;
     this.rotation = rotation;
     this.shipSprite = shipSprite;

@@ -43,10 +43,10 @@ export const PlayerJoinMessage = z.object({
   shipEngineSprite: z.enum(ShipEngineSprite),
 });
 export const PlayerJoinMessageCallback = z.object({
-    type: lt(WebSocketMessageType.PlayerJoinCallback),
-    playerID: z.string(),
-    entityID: z.string(),
-    gameID: z.string(),
+  type: lt(WebSocketMessageType.PlayerJoinCallback),
+  playerID: z.string(),
+  entityID: z.string(),
+  gameID: z.string(),
 });
 
 export const UpdatePlayersMessage = z.object({

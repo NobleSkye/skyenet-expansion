@@ -17,6 +17,7 @@ export class WsJoinMessageHandler implements WsMessageHandler {
     data: SocketMessageData,
   ) {
     assert(type === WebSocketMessageType.PlayerJoin);
+    console.log("joining player");
     const player = serverMgr.game.generatePlayer();
     serverMgr.game.addPlayer(player);
     data.socket.send(

@@ -15,8 +15,10 @@ export class ServerGame extends Game {
   }
   public generatePlayer(): Player {
     const id = ServerGame.generateRandomPlayerID();
+    const entityID = genStringID(8);
     return new Player(
       id,
+      entityID,
       this.config.defaultSpawnCoords.x,
       this.config.defaultSpawnCoords.y,
       0,

@@ -2,13 +2,24 @@ import { ClientGame } from "./ClientGame.js";
 import { GameRenderer } from "./lib/GameRenderer.js";
 import { GameMenu } from "./lib/GameMenu.js";
 import { AtlasManager } from "./lib/AtlasManager.js";
-import { getGameID, getPlayerID, initWebSocket } from "./WebSocket.js";
-import { GameMode } from "../../core/src/types.d.js";
+import {
+  getEntityID,
+  getGameID,
+  getPlayerID,
+  initWebSocket,
+  joinGame,
+} from "./WebSocket.js";
+import {
+  GameMode,
+  type EntityID,
+  type GameID,
+  type PlayerID,
+} from "../../core/src/types.d.js";
 
 let game: ClientGame;
 let renderer: GameRenderer;
 let menu: GameMenu;
-let atlasManager: AtlasManager;
+export let atlasManager: AtlasManager;
 let gameState: "menu" | "playing" = "menu";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -22,7 +33,9 @@ document.addEventListener("contextmenu", (event) => event.preventDefault());
 const canvas = document.getElementById("screen") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 const display = { startWidth: 1280, aspectRatio: [16, 9], scale: 0 };
+let gameStartRequested: boolean = false;
 
+/*
 async function initializeGame() {
   console.log("Starting game initialization...");
   initWebSocket();
@@ -68,42 +81,57 @@ async function initializeGame() {
   const gameID = await getGameID();
   const playerID = await getPlayerID();
   console.log(`Received authentication: gameID=${gameID} playerID=${playerID}`);
-  game = new ClientGame(gameID, GameMode.FFA, playerID);
+/////  game = new ClientGame(gameID, GameMode.FFA, playerID);
   renderer = new GameRenderer(ctx, display, game, atlasManager);
 
   console.log("Game initialization complete!");
 }
+*/
 
 function tick() {
   requestAnimationFrame(tick);
 
   if (gameState === "menu") {
-    // If game is running, render it in the background
-    if (menu.getGameRunning()) {
-      game.keyManager.update();
-      game.myPlayer.tick(game);
-      game.camera.tick();
-    }
-    renderer.drawGame(game);
-
-    // Render menu on top
     menu.render();
 
     // Check if user wants to start/resume game
-    if (menu.getCurrentScreen() === "game") {
-      gameState = "playing";
-      menu.setGameRunning(true);
-      // Update player's selected ship
-      const selectedShip = menu.getSelectedShip();
-      game.myPlayer.setShipType(selectedShip.sprite, selectedShip.engineSprite);
+    if (menu.getCurrentScreen() === "game" && !gameStartRequested) {
+      gameStartRequested = true;
+      (async () => {
+        const selectedShip = menu.getSelectedShip();
+        joinGame(selectedShip.sprite, selectedShip.engineSprite);
+        const loginInfo: {
+          playerID: PlayerID;
+          gameID: GameID;
+          entityID: EntityID;
+        } = {
+          playerID: await getPlayerID(),
+          gameID: await getGameID(),
+          entityID: await getEntityID(),
+        };
+        game = new ClientGame(
+          loginInfo.gameID,
+          GameMode.FFA,
+          loginInfo.playerID,
+          loginInfo.entityID,
+        );
+        gameState = "playing";
+        menu.setGameRunning(true);
+        // Update player's selected ship
+        game.myPlayer.setShipType(
+          selectedShip.sprite,
+          selectedShip.engineSprite,
+        );
+        renderer = new GameRenderer(ctx, display, game, atlasManager);
+      })();
     }
   } else if (gameState === "playing") {
-    // Check for escape key to return to menu
-    if (game.keyManager.wasKeyJustPressed("Escape")) {
-      gameState = "menu";
-      menu.setScreen("main");
-      return;
-    }
+    // // Check for escape key to return to menu
+    // if (game.keyManager.wasKeyJustPressed("Escape")) {
+    //   gameState = "menu";
+    //   menu.setScreen("main");
+    //   return;
+    // }
 
     game.keyManager.update();
     game.myPlayer.tick(game);
@@ -150,6 +178,8 @@ async function initMenu() {
   // Initialize menu
   console.log("Initializing menu...");
   menu = new GameMenu(canvas, ctx, atlasManager);
+  // menu.render();
+  tick();
 
   //// Initialize game (but don't start it yet)
   //console.log("Initializing game...");

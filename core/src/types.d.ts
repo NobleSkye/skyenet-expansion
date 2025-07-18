@@ -19,7 +19,9 @@ export enum WebSocketMessageType {
 declare namespace MessageType {
   export type MoveMessage = z.infer<typeof MoveMessage>;
   export type StatusMessage = z.infer<typeof StatusMessage>;
-  export type PlayerJoinCallbackMessage = z.infer<typeof PlayerJoinMessageCallback>;
+  export type PlayerJoinCallbackMessage = z.infer<
+    typeof PlayerJoinMessageCallback
+  >;
 }
 
 export enum ShipSprite {
