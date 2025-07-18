@@ -109,6 +109,11 @@ export class GameRenderer {
     //         -16,
     //       );
     // console.log(game.players)
+  this.ctx.font = "48px serif";
+    this.ctx.textAlign = "center";
+  this.ctx.fillText(`${game.players.length} person is connected`, 0, -100);
+
+
     for (let i = 0; i < game.players.length; i++) {
       for (let a = 0; a < game.players[i].flames.length; a++) {
         this.ctx.translate(
