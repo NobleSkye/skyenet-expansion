@@ -115,6 +115,7 @@ export class MyPlayer extends ClientPlayer {
       y: this.y,
       rotation: this.rotation,
       engineActive: this.engineActive,
+      flames: this.flames,
     });
   }
 

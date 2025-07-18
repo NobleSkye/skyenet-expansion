@@ -41,6 +41,9 @@ export class WsMovementMessageHandler implements WsMessageHandler {
     serverMgr.game.players[playerIndex].y = json!.y;
     serverMgr.game.players[playerIndex].rotation = json!.rotation;
     serverMgr.game.players[playerIndex].engineActive = json!.engineActive;
+    if(json!.flames !== undefined) {
+      serverMgr.game.players[playerIndex].flames = json!.flames;
+    }
 
     // Send movement to all clients
     serverMgr.wsMgr.wss.clients.forEach((client) => {

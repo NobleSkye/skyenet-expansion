@@ -50,6 +50,7 @@ export class WsJoinMessageHandler implements WsMessageHandler {
                 engineActive: player.engineActive,
                 shipSprite: player.shipSprite,
                 shipEngineSprite: player.shipEngineSprite,
+                flames: player.flames,
               },
             ],
             playersRemoved: [],

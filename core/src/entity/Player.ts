@@ -10,6 +10,15 @@ export class Player extends Entity {
   engineActive: boolean = false;
   shipSprite: ShipSprite = ShipSprite.Gray;
   shipEngineSprite: ShipEngineSprite = ShipEngineSprite.Gray;
+  flames: {
+    x: number;
+    y: number;
+    z?: number;
+    velX?: number;
+    velY?: number;
+    size?: number;
+    rotation?: number;
+  }[] = [];
 
   constructor(
     playerID: PlayerID,
