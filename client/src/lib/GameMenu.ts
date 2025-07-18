@@ -326,7 +326,13 @@ export class GameMenu {
         this.ctx.translate(100, itemY + 40);
         this.ctx.scale(2, 2);
 
-        this.atlasManager.drawTexture("entities", ship.sprite, this.ctx, -16, -16);
+        this.atlasManager.drawTexture(
+          "entities",
+          ship.sprite,
+          this.ctx,
+          -16,
+          -16,
+        );
 
         this.ctx.restore();
       }
