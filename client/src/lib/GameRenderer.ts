@@ -195,6 +195,28 @@ export class GameRenderer {
       // this.ctx.translate(-game.myPlayer.x, -game.myPlayer.y);
     }
     this.ctx.translate(-game.camera.x, -game.camera.y);
+
+    if(game.debug.info){
+      var fontSize=20
+      this.ctx.font = `${fontSize}px serif`;
+      this.ctx.textAlign = "left";
+      this.ctx.fillStyle = "#fff9";
+      let debugList=[]
+
+      debugList.push(`X:${Math.round(game.myPlayer.x)} `)
+      debugList.push(`Y:${Math.round(game.myPlayer.y)} `);
+      debugList.push(`R:${Math.round(game.myPlayer.rotation)} `);
+      debugList.push(`VelX:${Math.round(game.myPlayer.velX)} `);
+      debugList.push(`VelY:${Math.round(game.myPlayer.velY)} `);
+      debugList.push(`VelR:${Math.round(game.myPlayer.velR)} `);
+      debugList.push(`HP:${game.myPlayer.HP} / ${game.myPlayer.MaxHP} `);
+      debugList.push(`${game.players.length} person is connected`);
+
+      for(let i = 0; i<debugList.length;i++){
+        this.ctx.fillText(`${debugList[i]}`, 0, (i+1)*fontSize);
+
+      }
+    }
     // this.ctx.scale(
     //   .7,.7
     // );

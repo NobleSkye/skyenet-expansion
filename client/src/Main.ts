@@ -142,6 +142,7 @@ function tick() {
     game.keyManager.update();
     game.myPlayer.tick(game);
     game.camera.tick();
+    game.debug.tick()
     renderer.drawGame(game);
     game.tick();
   }

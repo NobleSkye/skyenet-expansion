@@ -9,12 +9,14 @@ import type { ClientPlayer } from "./entity/ClientPlayer";
 import { MyPlayer } from "./entity/MyPlayer";
 import { Camera } from "./lib/Camera";
 import { KeyManager } from "./lib/Keyman";
+import { Debug } from "./lib/Debug";
 
 export class ClientGame extends Game {
   public players: ClientPlayer[] = [];
   public keyManager = new KeyManager();
   public camera = new Camera(this);
   public myPlayer: MyPlayer;
+  public debug = new Debug(this)
   public stars: {
     x: number;
     y: number;
