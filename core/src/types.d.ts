@@ -1,5 +1,6 @@
 import z from "zod";
 import {
+  BulletMessage,
   MovementMessage,
   PlayerJoinMessageCallback,
   StatusMessage,
@@ -15,6 +16,7 @@ export enum WebSocketMessageType {
   PlayerJoin,
   PlayerJoinCallback,
   UpdatePlayers,
+  BulletMessage,
 }
 
 declare namespace MessageType {
@@ -24,6 +26,7 @@ declare namespace MessageType {
     typeof PlayerJoinMessageCallback
   >;
   export type UpdatePlayersMessage = z.infer<typeof UpdatePlayersMessage>;
+  export type BulletMessage = z.infer<typeof BulletMessage>;
 }
 
 export enum ShipSprite {

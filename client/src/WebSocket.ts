@@ -1,4 +1,5 @@
 import {
+  BulletMessage,
   MovementMessage,
   PlayerJoinMessage,
   PlayerJoinMessageCallback,
@@ -14,6 +15,7 @@ import {
   type MessageType,
   type PlayerID,
 } from "../../core/src/types.d";
+import { ClientBullet } from "./entity/ClientBullet";
 import { ClientPlayer } from "./entity/ClientPlayer";
 import { game } from "./Main";
 
@@ -78,6 +80,11 @@ export function initWebSocket() {
         result = MovementMessage.safeParse(json);
         if (!result.success) break;
         handleMovementMessage(result.data);
+        break;
+      case WebSocketMessageType.BulletMessage:
+        result = BulletMessage.safeParse(json);
+        if (!result.success) break;
+        handleBulletMesage(result.data);
         break;
       default:
         break;
@@ -198,4 +205,20 @@ function handleMovementMessage(msg: MessageType.MovementMessage) {
 
 export function sendMovement(msg: Omit<MessageType.MovementMessage, "type">) {
   socket.send(JSON.stringify(MovementMessage.parse(msg)));
+}
+
+export function sendBullet(msg: Omit<MessageType.BulletMessage, "type">) {
+  socket.send(JSON.stringify(BulletMessage.parse(msg)));
+}
+
+function handleBulletMesage(msg: MessageType.BulletMessage) {
+  game.entities.push(
+    new ClientBullet(
+      msg.bullet.x,
+      msg.bullet.y,
+      msg.bullet.velX,
+      msg.bullet.velY,
+      msg.playerID,
+    ),
+  );
 }

@@ -143,6 +143,7 @@ function tick() {
     game.myPlayer.tick(game);
     game.camera.tick();
     renderer.drawGame(game);
+    game.tick();
   }
 }
 

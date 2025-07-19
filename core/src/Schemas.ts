@@ -1,5 +1,6 @@
 import * as z from "zod";
 import { ShipEngineSprite, ShipSprite, WebSocketMessageType } from "./types.d";
+import { BulletType } from "./entity/Bullet";
 
 function lt(type: WebSocketMessageType) {
   return z.literal(type).default(type);
@@ -100,4 +101,15 @@ export const UpdatePlayersMessage = z.object({
   type: lt(WebSocketMessageType.UpdatePlayers),
   playersAdded: z.array(PlayerSchema),
   playersRemoved: z.array(z.string()),
+});
+
+export const BulletMessage = BaseWebSocketMessageSchema.extend({
+  type: lt(WebSocketMessageType.BulletMessage),
+  bullet: z.object({
+    type: z.enum(BulletType),
+    x: z.number(),
+    y: z.number(),
+    velX: z.number(),
+    velY: z.number(),
+  }),
 });

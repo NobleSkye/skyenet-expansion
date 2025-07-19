@@ -21,12 +21,12 @@ export class Player extends Entity {
     size?: number;
     rotation?: number;
   }[] = [];
-  Bullets: {
+  /*Bullets: {
     x: number;
     y: number;
     velX?: number;
     velY?: number;
-  }[] = [];
+  }[] = [];*/
 
   constructor(
     playerID: PlayerID,
@@ -68,6 +68,7 @@ export class Player extends Entity {
         i--;
       }
     }
+    /*
     for (let i = 0; i < this.Bullets.length; i++) {
       this.Bullets[i].x += this.Bullets[i].velX!;
       this.Bullets[i].y += this.Bullets[i].velY!;
@@ -79,5 +80,6 @@ export class Player extends Entity {
       //   i--;
       // }
     }
+    */
   }
 }

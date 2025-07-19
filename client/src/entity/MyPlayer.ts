@@ -1,9 +1,10 @@
+import { BulletType } from "../../../core/src/entity/Bullet";
 import {
   type ShipEngineSprite,
   type ShipSprite,
 } from "../../../core/src/types.d";
 import type { ClientGame } from "../ClientGame";
-import { sendMovement } from "../WebSocket";
+import { sendBullet, sendMovement } from "../WebSocket";
 import { ClientPlayer } from "./ClientPlayer";
 
 export class MyPlayer extends ClientPlayer {
@@ -74,11 +75,21 @@ export class MyPlayer extends ClientPlayer {
       // }
     }
     if (game.keyManager.wasKeyJustPressed("Space")) {
-      this.Bullets.push({
+      /*this.Bullets.push({
         x: this.x,
         y: this.y,
         velX: this.velX - vertical * 10,
         velY: this.velY - horizontal * 10,
+      });*/
+      sendBullet({
+        bullet: {
+          type: BulletType.Starter,
+          x: this.x,
+          y: this.y,
+          velX: this.velX - vertical * 10,
+          velY: this.velY - horizontal * 10,
+        },
+        playerID: this.playerID,
       });
     }
     if (game.keyManager.isKeyPressed("KeyD")) {

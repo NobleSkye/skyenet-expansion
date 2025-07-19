@@ -54,5 +54,6 @@ export class ClientGame extends Game {
     this.players
       .filter((player) => player.playerID !== this.myPlayer.playerID)
       .forEach((player) => player.move());
+    this.entities.forEach((entity) => entity.tick(this));
   }
 }
