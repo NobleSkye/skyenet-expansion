@@ -1,5 +1,10 @@
 import * as z from "zod";
-import { ShipEngineSprite, ShipSprite, WebSocketMessageType } from "./types.d";
+import {
+  EntityType,
+  ShipEngineSprite,
+  ShipSprite,
+  WebSocketMessageType,
+} from "./types.d";
 import { BulletType } from "./entity/Bullet";
 
 function lt(type: WebSocketMessageType) {
@@ -31,6 +36,12 @@ const PlayerSchema = z.object({
       }),
     ),
   ),
+});
+
+export const EntitySchema = z.object({
+  entityID: z.string(),
+  entityType: z.enum(EntityType),
+  entityData: z.any(),
 });
 
 export const BaseWebSocketMessageSchema = z.object({
@@ -95,6 +106,7 @@ export const PlayerJoinMessageCallback = z.object({
   entityID: z.string(),
   gameID: z.string(),
   players: z.array(PlayerSchema),
+  entities: z.array(EntitySchema),
 });
 
 export const UpdatePlayersMessage = z.object({

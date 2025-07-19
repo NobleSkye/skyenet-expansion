@@ -4,12 +4,13 @@ import {
   type ShipSprite,
 } from "../../../core/src/types.d";
 import type { ClientGame } from "../ClientGame";
+import { game } from "../Main";
 import { sendBullet, sendMovement } from "../WebSocket";
 import { ClientPlayer } from "./ClientPlayer";
 
 export class MyPlayer extends ClientPlayer {
   cameraDist: number = 0; // make this modifyable by player in settings
-  public tick(game: ClientGame) {
+  public tick() {
     this.velocityChange(game);
     this.move();
     this.sendMovement();

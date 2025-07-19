@@ -51,3 +51,8 @@ export enum GameMode {
 
 export const alphabetForID =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+export enum EntityType {
+  Bullet,
+  Asteroid,
+}
