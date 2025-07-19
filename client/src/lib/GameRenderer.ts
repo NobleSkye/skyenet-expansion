@@ -135,6 +135,20 @@ export class GameRenderer {
           -game.players[i].flames[a].y,
         );
       }
+      for (let a = 0; a < game.players[i].Bullets.length; a++) {
+        this.ctx.translate(
+          game.players[i].Bullets[a].x,
+          game.players[i].Bullets[a].y,
+        );
+        this.ctx.fillStyle = `#ffffaa`;
+        this.ctx.fillRect(
+          -5,-5,10,10
+        );
+        this.ctx.translate(
+          -game.players[i].Bullets[a].x,
+          -game.players[i].Bullets[a].y,
+        );
+      }
 
       // // Choose texture based on engine state and selected ship
       // const shipTexture = game.myPlayer.engineActive

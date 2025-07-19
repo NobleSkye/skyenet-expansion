@@ -6,6 +6,8 @@ export class Player extends Entity {
   velX: number = 0;
   velY: number = 0;
   velR: number = 0;
+  HP: number = 10;
+  MaxHP: number = 10;
   rotation: number;
   engineActive: boolean = false;
   shipSprite: ShipSprite = ShipSprite.Gray;
@@ -18,6 +20,12 @@ export class Player extends Entity {
     velY?: number;
     size?: number;
     rotation?: number;
+  }[] = [];
+  Bullets: {
+    x: number;
+    y: number;
+    velX?: number;
+    velY?: number;
   }[] = [];
 
   constructor(

@@ -27,10 +27,10 @@ export class MyPlayer extends ClientPlayer {
     // Reset engine state each frame
     this.engineActive = false;
 
+    const horizontal = Math.cos((this.rotation * Math.PI) / 180) / 3;
+    const vertical = Math.sin((this.rotation * Math.PI) / 180) / 3;
     if (game.keyManager.isKeyPressed("KeyW")) {
       // this.engineActive = true; // Set engine active when W is pressed
-      const horizontal = Math.cos((this.rotation * Math.PI) / 180) / 3;
-      const vertical = Math.sin((this.rotation * Math.PI) / 180) / 3;
       for (let i = 0; i < 10; i++) {
         this.makeFlame(horizontal, vertical);
       }
@@ -60,8 +60,6 @@ export class MyPlayer extends ClientPlayer {
       //   this.velR = 0;
       // }
 
-      const horizontal = Math.cos((this.rotation * Math.PI) / 180) / 3;
-      const vertical = Math.sin((this.rotation * Math.PI) / 180) / 3;
       for (let i = 0; i < 10; i++) {
         this.makeFlame(horizontal, vertical);
       }
@@ -73,6 +71,14 @@ export class MyPlayer extends ClientPlayer {
       // if(this.cameraDist>-10){
       //   this.cameraDist=((this.cameraDist*99)-10)/100
       // }
+    }
+    if (game.keyManager.wasKeyJustPressed("Space")) {
+      this.Bullets.push({
+        x:this.x,
+        y:this.y,
+        velX:this.velX-vertical*10,
+        velY:this.velY-horizontal*10
+      })
     }
     if (game.keyManager.isKeyPressed("KeyD")) {
       this.velR -= 0.1;
@@ -108,6 +114,17 @@ export class MyPlayer extends ClientPlayer {
         this.flames.splice(i, 1);
         i--;
       }
+    }
+    for (let i = 0; i < this.Bullets.length; i++) {
+      this.Bullets[i].x += this.Bullets[i].velX!;
+      this.Bullets[i].y += this.Bullets[i].velY!;
+      // this.flames[i].velY! *= 0.99; // Reduced friction to keep player moving longer
+      // this.flames[i].velX! *= 0.99; // Reduced friction to keep player moving longer
+      // this.flames[i].size! -= this.flames[i].z!;
+      // if (this.flames[i].size! <= 0) {
+      //   this.flames.splice(i, 1);
+      //   i--;
+      // }
     }
     sendMovement({
       playerID: this.playerID,
