@@ -152,6 +152,10 @@ export class GameRenderer {
       //   : game.myPlayer.shipSprite;
       // this.ctx.translate(game.camera.x, game.camera.y);
       this.ctx.translate(game.players[i].x, game.players[i].y);
+        this.ctx.fillStyle = `#aaaaaa77`;
+      this.ctx.fillRect(-52,-52,104,14)
+        this.ctx.fillStyle = `#ffffaa77`;
+      this.ctx.fillRect(-50,-50,(100/game.players[i].MaxHP)*game.players[i].HP,10)
       this.ctx.rotate(-((game.players[i].rotation * Math.PI) / 180));
 
       // Apply 3  x scale for player ship

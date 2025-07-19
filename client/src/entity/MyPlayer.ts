@@ -74,6 +74,12 @@ export class MyPlayer extends ClientPlayer {
       //   this.cameraDist=((this.cameraDist*99)-10)/100
       // }
     }
+    if (game.keyManager.wasKeyJustPressed("KeyO")) {
+      this.HP++;
+    }
+    if (game.keyManager.wasKeyJustPressed("KeyL")) {
+      this.HP--;
+    }
     if (game.keyManager.wasKeyJustPressed("Space")) {
       /*this.Bullets.push({
         x: this.x,
