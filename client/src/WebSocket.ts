@@ -1,3 +1,4 @@
+import type { Entity } from "../../core/src/entity/Entity";
 import {
   BulletMessage,
   MovementMessage,
@@ -7,6 +8,7 @@ import {
   UpdatePlayersMessage,
 } from "../../core/src/Schemas";
 import {
+  EntityType,
   ShipEngineSprite,
   ShipSprite,
   WebSocketMessageType,
@@ -15,11 +17,13 @@ import {
   type MessageType,
   type PlayerID,
 } from "../../core/src/types.d";
+import { ClientAsteroid } from "./entity/ClientAsteroid";
 import { ClientBullet } from "./entity/ClientBullet";
 import { ClientPlayer } from "./entity/ClientPlayer";
 import { game } from "./Main";
 
 export const playersFromJoin: ClientPlayer[] = [];
+export const entitiesFromJoin: Entity[] = [];
 
 let resolveGameID: (value: string | PromiseLike<string>) => void;
 const gameID: Promise<GameID> = new Promise((resolve) => {
@@ -127,6 +131,33 @@ function handleJoinCallbackMessage(msg: MessageType.PlayerJoinCallbackMessage) {
       clientPlayer.flames = player.flames;
     }
     playersFromJoin.push(clientPlayer);
+  });
+  msg.entities.forEach((entity) => {
+    let newEntity: Entity;
+    switch (entity.entityType) {
+      case EntityType.Bullet:
+        newEntity = new ClientBullet(
+          entity.entityData.x,
+          entity.entityData.y,
+          entity.entityData.velX,
+          entity.entityData.velY,
+          entity.entityData.owner,
+        );
+        break;
+      case EntityType.Asteroid:
+        newEntity = new ClientAsteroid(
+          entity.entityData.x,
+          entity.entityData.y,
+          entity.entityData.rotation,
+          entity.entityData.size,
+        );
+        break;
+      default:
+        console.warn(`Received unknown entity type: ${entity.entityType}`);
+        return;
+    }
+    newEntity.entityID = entity.entityID;
+    entitiesFromJoin.push(newEntity);
   });
 }
 

@@ -3,6 +3,7 @@ import { GameRenderer } from "./lib/GameRenderer.js";
 import { GameMenu } from "./lib/GameMenu.js";
 import { AtlasManager } from "./lib/AtlasManager.js";
 import {
+  entitiesFromJoin,
   getEntityID,
   getGameID,
   getPlayerID,
@@ -121,6 +122,8 @@ function tick() {
           if (player.playerID === loginInfo.playerID) return;
           game.players.push(player);
         });
+        game.entities.push(...entitiesFromJoin);
+        console.log(entitiesFromJoin);
         gameState = "playing";
         menu.setGameRunning(true);
         // Update player's selected ship
@@ -140,7 +143,7 @@ function tick() {
     // }
 
     game.keyManager.update();
-    game.myPlayer.tick(game);
+    game.myPlayer.tick();
     game.camera.tick();
     renderer.drawGame(game);
     game.tick();

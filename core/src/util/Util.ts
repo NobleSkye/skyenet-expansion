@@ -1,4 +1,8 @@
-import { alphabetForID } from "../types.d";
+import { Asteroid } from "../entity/Asteroid";
+import { Bullet } from "../entity/Bullet";
+import { Entity } from "../entity/Entity";
+import { EntitySchema } from "../Schemas";
+import { alphabetForID, EntityType } from "../types.d";
 
 export function genStringID(length: number) {
   let id = "";
@@ -13,3 +17,25 @@ export function assert(condition: boolean) {
     throw new Error(`Assertion failed! Time: ${Date.now()}`);
   }
 }
+
+export function entitiyToZodEntitySchema(entity: Entity) {
+  let type: EntityType;
+
+  if (entity instanceof Bullet) type = EntityType.Bullet;
+  else if (entity instanceof Asteroid) type = EntityType.Asteroid;
+  else throw new Error(`Entity instanceof checks failed :(`);
+
+  return EntitySchema.parse({
+    entityID: entity.entityID,
+    entityType: type,
+    entityData: entity,
+  });
+}
+
+/*
+export const EntitySchema = z.object({
+  entityID: z.string(),
+  entityType: z.enum(EntityType),
+  entityData: z.any(),
+})
+*/

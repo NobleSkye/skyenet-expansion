@@ -1,6 +1,13 @@
-import { Game } from "../Game";
-import { EntityID } from "../types.d";
-import { genStringID } from "../util/Util";
+import { alphabetForID, EntityID } from "../types.d";
+
+// Making the function here without importing from Util.ts to prevent circular dependencies breaking everything
+function genStringID(length: number) {
+  let id = "";
+  for (let i = 0; i < length; i++) {
+    id += alphabetForID[Math.floor(Math.random() * alphabetForID.length)];
+  }
+  return id;
+}
 
 export class Entity {
   entityID: EntityID;
@@ -18,6 +25,5 @@ export class Entity {
   public generateID(): EntityID {
     return genStringID(8);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public tick(game: Game) {}
+  public tick() {}
 }

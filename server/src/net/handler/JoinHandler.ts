@@ -1,12 +1,17 @@
+import z from "zod";
 import {
   PlayerJoinMessageCallback,
   UpdatePlayersMessage,
 } from "../../../../core/src/Schemas";
 import { WebSocketMessageType } from "../../../../core/src/types.d";
-import { assert } from "../../../../core/src/util/Util";
+import {
+  assert,
+  entitiyToZodEntitySchema,
+} from "../../../../core/src/util/Util";
 import { serverMgr } from "../../Main";
 import { SocketMessageData } from "../WebSocketServer";
 import { WsMessageHandler } from "./Handler";
+import { EntitySchema } from "../../../../core/src/Schemas";
 
 export class WsJoinMessageHandler implements WsMessageHandler {
   handledTypes: WebSocketMessageType[];
@@ -23,6 +28,10 @@ export class WsJoinMessageHandler implements WsMessageHandler {
     console.log("joining player");
     const player = serverMgr.game.generatePlayer();
     serverMgr.game.addPlayer(player);
+    const entitiesAsSchema: z.infer<typeof EntitySchema>[] = [];
+    serverMgr.game.entities.forEach((entity) => {
+      entitiesAsSchema.push(entitiyToZodEntitySchema(entity));
+    });
     data.socket.send(
       JSON.stringify(
         PlayerJoinMessageCallback.parse({
@@ -30,6 +39,7 @@ export class WsJoinMessageHandler implements WsMessageHandler {
           entityID: player.entityID,
           gameID: serverMgr.game.gameID,
           players: serverMgr.game.players,
+          entities: entitiesAsSchema,
         }),
       ),
     );

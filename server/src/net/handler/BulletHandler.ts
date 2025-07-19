@@ -22,15 +22,15 @@ export class WsBulletMessageHandler implements WsMessageHandler {
   ) {
     assert(type === WebSocketMessageType.BulletMessage);
     const json = JSON.parse(data.message.toString()) as
-      | MessageType.MovementMessage
+      | MessageType.BulletMessage
       | undefined;
     assert(typeof json !== "undefined" && json !== undefined);
     serverMgr.game.entities.push(
       new ServerBullet(
-        json!.x,
-        json!.y,
-        json!.velX,
-        json!.velY,
+        json!.bullet.x,
+        json!.bullet.y,
+        json!.bullet.velX,
+        json!.bullet.velY,
         json!.playerID,
       ),
     );
