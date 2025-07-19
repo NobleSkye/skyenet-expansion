@@ -116,7 +116,7 @@ function handleJoinCallbackMessage(msg: MessageType.PlayerJoinCallbackMessage) {
     clientPlayer.velX = player.velX;
     clientPlayer.velY = player.velY;
     clientPlayer.velR = player.velR;
-    if(player.flames !== undefined) {
+    if (player.flames !== undefined) {
       clientPlayer.flames = player.flames;
     }
     playersFromJoin.push(clientPlayer);
@@ -171,7 +171,7 @@ function handleUpdatePlayersMessage(msg: MessageType.UpdatePlayersMessage) {
     _addedPlayer.velY = addedPlayer.velY;
     _addedPlayer.velR = addedPlayer.velR;
     _addedPlayer.engineActive = addedPlayer.engineActive;
-    if(addedPlayer.flames !== undefined) {
+    if (addedPlayer.flames !== undefined) {
       _addedPlayer.flames = addedPlayer.flames;
     }
     game.players.push(_addedPlayer);
@@ -179,7 +179,11 @@ function handleUpdatePlayersMessage(msg: MessageType.UpdatePlayersMessage) {
 }
 
 function handleMovementMessage(msg: MessageType.MovementMessage) {
-  if((msg.ignoreOwnPlayer === undefined || msg.ignoreOwnPlayer) && msg.playerID === game.myPlayer.playerID) return;
+  if (
+    (msg.ignoreOwnPlayer === undefined || msg.ignoreOwnPlayer) &&
+    msg.playerID === game.myPlayer.playerID
+  )
+    return;
   const playerIndex = game.players.findIndex(
     (player) => player.playerID === msg.playerID,
   );
@@ -187,7 +191,7 @@ function handleMovementMessage(msg: MessageType.MovementMessage) {
   game.players[playerIndex].y = msg.y;
   game.players[playerIndex].engineActive = msg.engineActive;
   game.players[playerIndex].rotation = msg.rotation;
-  if(msg.flames !== undefined) {
+  if (msg.flames !== undefined) {
     game.players[playerIndex].flames = msg.flames;
   }
 }

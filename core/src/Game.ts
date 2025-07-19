@@ -22,6 +22,6 @@ export class Game {
   }
 
   public tick() {
-    this.players.forEach(player => player.move());
+    this.players.forEach((player) => player.move());
   }
 }

@@ -75,11 +75,11 @@ export class MyPlayer extends ClientPlayer {
     }
     if (game.keyManager.wasKeyJustPressed("Space")) {
       this.Bullets.push({
-        x:this.x,
-        y:this.y,
-        velX:this.velX-vertical*10,
-        velY:this.velY-horizontal*10
-      })
+        x: this.x,
+        y: this.y,
+        velX: this.velX - vertical * 10,
+        velY: this.velY - horizontal * 10,
+      });
     }
     if (game.keyManager.isKeyPressed("KeyD")) {
       this.velR -= 0.1;

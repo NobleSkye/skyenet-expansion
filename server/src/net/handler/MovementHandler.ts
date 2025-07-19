@@ -44,7 +44,7 @@ export class WsMovementMessageHandler implements WsMessageHandler {
     serverMgr.game.players[playerIndex].velX = json!.velX;
     serverMgr.game.players[playerIndex].velY = json!.velY;
     serverMgr.game.players[playerIndex].velR = json!.velR;
-    if(json!.flames !== undefined) {
+    if (json!.flames !== undefined) {
       serverMgr.game.players[playerIndex].flames = json!.flames;
     }
 

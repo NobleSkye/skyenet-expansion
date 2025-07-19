@@ -141,9 +141,7 @@ export class GameRenderer {
           game.players[i].Bullets[a].y,
         );
         this.ctx.fillStyle = `#ffffaa`;
-        this.ctx.fillRect(
-          -5,-5,10,10
-        );
+        this.ctx.fillRect(-5, -5, 10, 10);
         this.ctx.translate(
           -game.players[i].Bullets[a].x,
           -game.players[i].Bullets[a].y,

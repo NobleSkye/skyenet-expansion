@@ -1,3 +1,4 @@
+import { Game } from "../Game";
 import { EntityID } from "../types.d";
 import { genStringID } from "../util/Util";
 
@@ -17,4 +18,6 @@ export class Entity {
   public generateID(): EntityID {
     return genStringID(8);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public tick(game: Game) {}
 }

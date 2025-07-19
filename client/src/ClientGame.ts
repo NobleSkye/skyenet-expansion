@@ -51,6 +51,8 @@ export class ClientGame extends Game {
   }
 
   public tick() {
-    this.players.filter(player => player.playerID !== this.myPlayer.playerID).forEach(player => player.move());
+    this.players
+      .filter((player) => player.playerID !== this.myPlayer.playerID)
+      .forEach((player) => player.move());
   }
 }
