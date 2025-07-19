@@ -20,4 +20,8 @@ export class Game {
   public addPlayer(player: Player) {
     this.players.push(player);
   }
+
+  public tick() {
+    this.players.forEach(player => player.move());
+  }
 }

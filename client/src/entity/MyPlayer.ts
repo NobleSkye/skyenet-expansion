@@ -11,6 +11,7 @@ export class MyPlayer extends ClientPlayer {
   public tick(game: ClientGame) {
     this.velocityChange(game);
     this.move();
+    this.sendMovement();
   }
   private makeFlame(horizontal: number, vertical: number) {
     this.flames[this.flames.length] = {
@@ -91,41 +92,7 @@ export class MyPlayer extends ClientPlayer {
     // }
   }
 
-  private move() {
-    this.y += this.velY;
-    this.x += this.velX;
-    this.rotation += this.velR;
-    this.velY *= 0.997; // Reduced friction to keep player moving longer
-    this.velX *= 0.997; // Reduced friction to keep player moving longer
-    this.velR *= 0.99; // Keep rotation friction the same
-    if (this.rotation >= 360) {
-      this.rotation -= 360;
-    }
-    if (this.rotation <= 0) {
-      this.rotation += 360;
-    }
-    for (let i = 0; i < this.flames.length; i++) {
-      this.flames[i].x += this.flames[i].velX!;
-      this.flames[i].y += this.flames[i].velY!;
-      this.flames[i].velY! *= 0.99; // Reduced friction to keep player moving longer
-      this.flames[i].velX! *= 0.99; // Reduced friction to keep player moving longer
-      this.flames[i].size! -= this.flames[i].z!;
-      if (this.flames[i].size! <= 0) {
-        this.flames.splice(i, 1);
-        i--;
-      }
-    }
-    for (let i = 0; i < this.Bullets.length; i++) {
-      this.Bullets[i].x += this.Bullets[i].velX!;
-      this.Bullets[i].y += this.Bullets[i].velY!;
-      // this.flames[i].velY! *= 0.99; // Reduced friction to keep player moving longer
-      // this.flames[i].velX! *= 0.99; // Reduced friction to keep player moving longer
-      // this.flames[i].size! -= this.flames[i].z!;
-      // if (this.flames[i].size! <= 0) {
-      //   this.flames.splice(i, 1);
-      //   i--;
-      // }
-    }
+  public sendMovement() {
     sendMovement({
       playerID: this.playerID,
       x: this.x,
@@ -133,6 +100,9 @@ export class MyPlayer extends ClientPlayer {
       rotation: this.rotation,
       engineActive: this.engineActive,
       flames: this.flames,
+      velX: this.velX,
+      velY: this.velY,
+      velR: this.velR,
     });
   }
 

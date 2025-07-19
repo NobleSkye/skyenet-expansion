@@ -50,6 +50,9 @@ export const MovementMessage = BaseWebSocketMessageSchema.extend({
   type: lt(WebSocketMessageType.Movement),
   x: z.number(),
   y: z.number(),
+  velX: z.number(),
+  velY: z.number(),
+  velR: z.number(),
   engineActive: z.boolean(),
   rotation: z.number(),
   flames: z.optional(
@@ -65,6 +68,7 @@ export const MovementMessage = BaseWebSocketMessageSchema.extend({
       }),
     ),
   ),
+  ignoreOwnPlayer: z.boolean().optional(),
 });
 
 /*

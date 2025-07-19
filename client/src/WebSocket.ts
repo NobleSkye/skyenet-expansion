@@ -179,6 +179,7 @@ function handleUpdatePlayersMessage(msg: MessageType.UpdatePlayersMessage) {
 }
 
 function handleMovementMessage(msg: MessageType.MovementMessage) {
+  if((msg.ignoreOwnPlayer === undefined || msg.ignoreOwnPlayer) && msg.playerID === game.myPlayer.playerID) return;
   const playerIndex = game.players.findIndex(
     (player) => player.playerID === msg.playerID,
   );
